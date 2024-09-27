@@ -1,0 +1,48 @@
+body {
+    color: rgb(255, 240, 240);
+    background-image: url(/images/background.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    margin-left: 5%;
+    margin-right: 5%;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+}
+
+a{
+    color: rgb(255, 240, 240);
+    text-decoration: none;
+}
+
+.centrado_y_repartido {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.footer {
+    background-color: rgb(171, 27, 27);
+    color: rgb(255, 240, 240);
+    margin-top: 20%;
+    padding: 30px;
+}
+
+.header{
+    background-color: rgb(171, 27, 27); 
+    color: rgb(255, 240, 240);
+}
+
+.colocar{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.contenedor_principal{
+    background-color: rgb(59, 63, 67);
+    opacity: 95%;
+}
+
+.imgStyle{
+    padding-left: 50px;
+    padding-top: 100px;
+}
