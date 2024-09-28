@@ -16,7 +16,7 @@
                 ?>
             </div>
         </header>
-        <img src="/images/imgDeck.jpg" alt="baraja de cartas" height="200px" class="imgStyle">
+        <img src="/images/imgDeck.jpg" alt="baraja de cartas" height="200px" class="addPadding">
         <footer class="centrado_y_repartido footer" >
             <?php
                 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/footer.inc.php');

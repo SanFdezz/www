@@ -56,8 +56,9 @@
 
         <?php
             //vamos a desordenar el array, es decir, vamos a barajar la baraja.
-            $try = shuffle($deck);
+            shuffle($deck);
 
+ 
             //creamos los jugadores.
             $players = ['Stan Marsh','Kyle Broflovsky','Eric Cartman','Kenny Mccoormik','Wendy Testaburguer'];
             shuffle($players);
@@ -74,23 +75,38 @@
                 $player1_cards[] = array_pop($deck);
                 $player2_cards[] = array_pop($deck);
                 
-                
             }
 
-            // creamos la funcion que muestra las cartas por pantalla
 
-            function showCards($hand) {
-                echo '<div class="hand">';
+            // creamos un mapa que nos sirva para almacenar la info del juego
+            $game_info = [['player' => $player1, 'hand' => $player1_cards, 'points' => 0],
+            ['player' => $player2, 'hand' => $player2_cards, 'points' => 0]];
+
+
+            // creamos la funcion que muestra las cartas por pantalla
+            function showCards($game_info) {
+                echo '<div class="addPadding">';
+                echo '<div class="hands" >Jugador: '. $game_info['player']. '</div><br>';
+                echo '<div class="hands" >';
                 for ($i=0; $i<10; $i++) {
-                    echo '<img src="/images/'. $hand[$i]['image'] .'" alt="Cartas" height="100px">';
+                    echo '<img src="/images/'. $game_info['hand'][$i]['image'] .'" alt="Cartas">';
                 }; // cerramos el for
                 echo '</div>';
-            }; // cerramos la funcion!!!!!
+                echo '</div>';
+            };
+
+
 
             // llamamos a la funcion con cada 1 de los jugadores
-            showCards($player1_cards);
+            showCards($game_info[0]);
             echo '<br>';
-            showCards($player2_cards);
+            showCards($game_info[1]);
+
+
+        ?>
+
+        <?php
+
 
 
         ?>

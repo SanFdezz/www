@@ -6,6 +6,7 @@ body {
     margin-left: 5%;
     margin-right: 5%;
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+    font-size: 20px;
 }
 
 a{
@@ -22,7 +23,6 @@ a{
 .footer {
     background-color: rgb(171, 27, 27);
     color: rgb(255, 240, 240);
-    margin-top: 20%;
     padding: 30px;
 }
 
@@ -45,4 +45,19 @@ a{
 .imgStyle{
     padding-left: 50px;
     padding-top: 100px;
+}
+
+.hands {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.addPadding{
+    padding-top: 30px;
+    padding-bottom: 30px;
+}
+
+img{
+    height: 150px;
 }
