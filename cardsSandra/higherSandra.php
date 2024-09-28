@@ -107,6 +107,33 @@
 
         <?php
 
+            // creamos la lógica del juego.
+            for ($i=0; $i<10; $i++) {
+                $value1 = $game_info[0]['hand'][$i]['value'];
+                $value2 = $game_info[1]['hand'][$i]['value'];
+                
+                if ($value1 > $value2) {
+                    $game_info[0]['points'] += 2;
+                } else if ($value2 > $value1){
+                    $game_info[1]['points'] += 2;
+                } else {
+                    $game_info[0]['points'] += 1;
+                    $game_info[1]['points'] += 1;
+                }
+
+             };
+
+             echo '<div class="msj" >'. $player1 .' tiene un total de: '. $game_info[0]['points'] .' puntos. </div> <br>';
+             echo '<div class="msj">'. $player2 .' tiene un total de: '. $game_info[1]['points'] .' puntos </div> <br>';
+
+
+             if ($game_info[0]['points'] > $game_info[1]['points']) {
+                echo '<h2 class="msj">EL GANADOR/A ES: '. $game_info[0]['player'] .'</h2>';
+             } else if ($game_info[0]['points'] < $game_info[1]['points']){
+                echo '<h2 class="msj">EL GANADOR/A ES: '. $game_info[1]['player'] .'</h2>';
+             } else {
+                echo '<h2 class="msj">HA HABIDO UN EMPATE</h2>';
+             };
 
 
         ?>
