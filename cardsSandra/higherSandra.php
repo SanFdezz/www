@@ -16,42 +16,9 @@
                 ?>
             </div>
         </header>
+        
         <?php
-        /*
-            Explicación:
-            Se define un array $suits que contiene los nombres de los cuatro palos.
-            Se inicializa un array vacío $deck para almacenar las cartas.
-            Un primer bucle for recorre los palos. Dentro de este bucle, se añaden las cartas numeradas del 1 al 10.
-            Luego, se utiliza un foreach para agregar las figuras (J, Q, K).
-            Cada carta se añade al array $deck con su palo, valor e imagen correspondiente.
-            El resultado es un array que contiene todas las cartas de la baraja francesa, donde el As tiene un valor de 1
-
-        */
-            $suits = ["corazones", "rombos", "treboles", "picas"];
-            $deck = [];
-
-            for ($suitIndex = 0; $suitIndex < count($suits); $suitIndex++) {
-                $suit = $suits[$suitIndex];
-                
-                // Añadir los números del 1 al 10
-                for ($value = 1; $value <= 10; $value++) {
-                    $deck[] = [
-                        "suit" => $suit,
-                        "value" => (string)$value,
-                        "image" => "{$suit[0]}{$suit[1]}{$suit[2]}_{$value}.png"
-                    ];
-                }
-                
-                // Añadir las figuras: J, Q, K
-                $figures = ["J" => "j", "Q" => "q", "K" => "k"];
-                foreach ($figures as $figure => $short) {
-                    $deck[] = [
-                        "suit" => $suit,
-                        "value" => $figure,
-                        "image" => "{$suit[0]}{$suit[1]}{$suit[2]}_{$short}.png"
-                    ];
-                }
-            }
+            require_once($_SERVER['DOCUMENT_ROOT'].'/includes/deck.inc.php');
         ?>
 
         <?php
