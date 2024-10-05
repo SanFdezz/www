@@ -91,84 +91,28 @@
                 } while ($points < 14);
             }
 
-            /*
-            function calculate_points(&$game_info){
-                $points = 0;
-                $cards = count($game_info['hand']);
-                
-                for($i=0; $i<$cards; $i++){
-                    $actual_points_plus_11 = $game_info['points']+11;
-                    switch($game_info['hand'][$i]['value']){
-                        case 'J':
-                        case 'Q':
-                        case 'K':
-                            $points += 10;
-                            break;
-                        case 1:
-                            if($actual_points_plus_11 > 21){
-                                $points += 1;
-                            }else if ($game_info['points'] < 14){
-                                $points += 11;
-                            } else {
-                                $points += 1;
-                            };
-                            break;
-                        default:
-                            $points += $game_info['hand'][$i]['value'];
-                    } 
+            foreach ($game_info as $key => $player_info) {
+
+                if ($key == 0) {
+                    continue;
                 }
 
-                $game_info['points'] = $points;
+                if($game_info[$key]['points'] > 21) {
+                    $game_info[$key]['state'] = 'Pierdes';
+                } else if($game_info[$key]['points'] > $game_info[0]['points']) {
+                    $game_info[$key]['state'] = 'Ganas';
+                } else if($game_info[0]['points'] > 21 && $game_info[$key]['points'] < $game_info[0]['points']) {
+                    $game_info[$key]['state'] = 'Ganas';
+                } else if ($game_info[$key]['points'] == $game_info[0]['points']) {
+                    $game_info[$key]['state'] = 'Empatas';
+                } else {
+                    $game_info[$key]['state'] = 'Pierdes';
+                };
 
             };
-            
-
-            calculate_points($game_info[0]);
-            calculate_points($game_info[1]);
-            calculate_points($game_info[2]);
-            calculate_points($game_info[3]);
-            calculate_points($game_info[4]);
-            calculate_points($game_info[5]);
-
-            
-            function add_card(&$game_info, &$deck){
-                while($game_info['points'] < 14){
-                    $game_info['hand'][] = array_pop($deck);
-                    calculate_points($game_info);
-                }
-            };
-
-            add_card($game_info[0],$deck);
-            add_card($game_info[1],$deck);
-            add_card($game_info[2],$deck);
-            add_card($game_info[3],$deck);
-            add_card($game_info[4],$deck);
-            add_card($game_info[5],$deck);
-            */
-
 
 
             //lógica del juego
-
-            function check_winner($bank, &$game_info){
-                if($game_info['points'] > 21) {
-                    $game_info['state'] = 'Pierdes';
-                } else if($game_info['points'] > $bank['points']) {
-                    $game_info['state'] = 'Ganas';
-                } else if($bank['points'] > 21 && $game_info['points'] < $bank['points']) {
-                    $game_info['state'] = 'Ganas';
-                } else if ($game_info['points'] == $bank['points']) {
-                    $game_info['state'] = 'Empatas';
-                } else {
-                    $game_info['state'] = 'Pierdes';
-                };
-            };
-            
-            check_winner($game_info[0],$game_info[1]);
-            check_winner($game_info[0],$game_info[2]);
-            check_winner($game_info[0],$game_info[3]);
-            check_winner($game_info[0],$game_info[4]);
-            check_winner($game_info[0],$game_info[5]);
 
             //mostramos las cartas por pantalla y el nombre del jugador
             function showCards($game_info) {
