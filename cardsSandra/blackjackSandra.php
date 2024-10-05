@@ -55,6 +55,43 @@
             ['player' => $player5, 'hand' => $player5_cards, 'points' => 0, 'state' => 'none']];
 
 
+            // calculate_points
+            foreach ($game_info as $key => $player_info) {
+                do{
+                    $points = 0;
+                    $cards = count($game_info[$key]['hand']);
+
+                   
+                    for($i=0; $i<$cards; $i++){
+                        switch($game_info[$key]['hand'][$i]['value']){
+                            case 'J':
+                            case 'Q':
+                            case 'K':
+                                $points += 10;
+                                break;
+                            case 1:
+                                if(($player_info['points']+11) > 21){
+                                    $points += 1;
+                                } else {
+                                    $points += 11;
+                                };
+                                break;
+                            default:
+                                $points += $game_info[$key]['hand'][$i]['value'];
+                        } 
+                    }
+
+
+                    if ($points < 14) {
+                        $game_info[$key]['hand'][] = array_pop($deck);
+                    }
+
+                    $game_info[$key]['points'] = $points;
+
+                } while ($points < 14);
+            }
+
+            /*
             function calculate_points(&$game_info){
                 $points = 0;
                 $cards = count($game_info['hand']);
@@ -73,7 +110,7 @@
                             }else if ($game_info['points'] < 14){
                                 $points += 11;
                             } else {
-                                $points = 1;
+                                $points += 1;
                             };
                             break;
                         default:
@@ -84,6 +121,7 @@
                 $game_info['points'] = $points;
 
             };
+            
 
             calculate_points($game_info[0]);
             calculate_points($game_info[1]);
@@ -92,6 +130,7 @@
             calculate_points($game_info[4]);
             calculate_points($game_info[5]);
 
+            
             function add_card(&$game_info, &$deck){
                 while($game_info['points'] < 14){
                     $game_info['hand'][] = array_pop($deck);
@@ -105,7 +144,7 @@
             add_card($game_info[3],$deck);
             add_card($game_info[4],$deck);
             add_card($game_info[5],$deck);
-
+            */
 
 
 
@@ -157,10 +196,6 @@
             echo '<br>';
             showCards($game_info[5]);
         ?>
-
-
-
-
 
         <footer class="centrado_y_repartido footer">
             <?php
