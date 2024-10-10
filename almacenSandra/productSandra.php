@@ -1,12 +1,44 @@
 <?php
-    if(!empty($_POST)){
-        foreach($_POST as $key => $value){
-            $_POST[$key] = trim($value);
+/**
+ * CÓDIGO DE LA ACTIVIDAD 2 DE Actividad 2 – Validando la información
+ * 
+ * @author Sandra Fernández Ávila
+ * @version 1.0
+ * 
+ */
+?>1
+
+
+<?php
+        if(!empty($_POST)){
+            foreach($_POST as $key => $value){
+                $_POST[$key] = trim($value);
+            } 
             if($_POST[$key]==''){
-                $errors[$key] = $key.' no puede estar vacio';
+                $errors = true;
+                echo '<div class="error"><b>No puede haber campos vacios</b></div>';
+            } else if (!preg_match('/\w-[0-9]{5}/',$_POST['codigo'])) {
+                $errors = true;
+                echo '<div class="error"><b>El código no es válido, ( ej: a-12345 )</b></div>';
+            } else if (!preg_match('/^[a-zA-Z]{3,20}$/',$_POST['nombre'])) {
+                $errors = true;
+                echo '<div class="error"><b>El nombre introducido no es válido, ( min 3, max 20 )</b></div>';
+            } else if (!preg_match('/^\d+(\.\d+)?$/',$_POST['precio'])) {
+                $errors = true;
+                echo '<div class="error"><b>El precio introducido no es válido.</b></div>';
+            } else if (!preg_match('/^[a-zA-Z0-9]{50,}$/',$_POST['descripción'])) {
+                $errors = true;
+                echo '<div class="error"><b>La descripcion introducida no es válida, ( min 50 caracteres )</b></div>';
+            } else if (!preg_match('/^[a-zA-Z0-9]{10,20}$/',$_POST['fabricante'])) {
+                $errors = true;
+                echo '<div class="error"><b>El fabricante introducido no es válido. ( min 10 max 20 )</b></div>';
+            } else if (!preg_match('/^(0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-(19|20)\d{2}$/',$_POST['fecha'])) {
+                $errors = true;
+                echo '<div class="error"><b>La fecha introducida no es válida.</b></div>';
+            } else {
+                $errors = false;
             }
-        } 
-    }
+        }
 ?>
 
 <!DOCTYPE html>
@@ -19,14 +51,8 @@
 <body>
 
     <?php
-        if(empty($_POST) || isset($errors) ){
-            if(isset($errors)){
-                echo '<div>';
-                foreach($errors as $key => $error){
-                    echo 'Hay un error en el campo: '. $errors[$key] .' <br>';
-                }  
-                echo '</div>';
-            }
+        if(empty($_POST) || $errors ){
+            
             
     ?>
 
