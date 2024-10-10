@@ -6,7 +6,7 @@
  * @version 1.0
  * 
  */
-?>1
+?>
 
 
 <?php
@@ -70,6 +70,7 @@
 
         } else {
             echo '<h1>El formulario ha sido enviado correctamente.</h1>';
+            echo '<a href="productSandra.php">HAZ EL FORMULARIO DE NUEVO</a>';
         }
         
     ?>
