@@ -6,37 +6,40 @@
  * @version 1.0
  * 
  */
-?>
 
-
-<?php
         if(!empty($_POST)){
             foreach($_POST as $key => $value){
                 $_POST[$key] = trim($value);
-            } 
-            if($_POST[$key]==''){
-                $errors = true;
-                echo '<div class="error"><b>No puede haber campos vacios</b></div>';
+            }
+
+            if($_POST['codigo']==''){
+                $errors['codigo'] = 'El campo codigo no puede estar vacio';
             } else if (!preg_match('/\w-[0-9]{5}/',$_POST['codigo'])) {
-                $errors = true;
-                echo '<div class="error"><b>El código no es válido, ( ej: a-12345 )</b></div>';
+                $errors['codigo'] = 'El código no es válido, ( ej: a-12345 )';
+            }
+
+            if($_POST['nombre']==''){
+                $errors['nombre'] = 'El campo nombre no puede estar vacio';
             } else if (!preg_match('/^[a-zA-Z]{3,20}$/',$_POST['nombre'])) {
-                $errors = true;
-                echo '<div class="error"><b>El nombre introducido no es válido, ( min 3, max 20 )</b></div>';
-            } else if (!preg_match('/^\d+(\.\d+)?$/',$_POST['precio'])) {
-                $errors = true;
-                echo '<div class="error"><b>El precio introducido no es válido.</b></div>';
-            } else if (!preg_match('/^[a-zA-Z0-9]{50,}$/',$_POST['descripción'])) {
-                $errors = true;
-                echo '<div class="error"><b>La descripcion introducida no es válida, ( min 50 caracteres )</b></div>';
-            } else if (!preg_match('/^[a-zA-Z0-9]{10,20}$/',$_POST['fabricante'])) {
-                $errors = true;
-                echo '<div class="error"><b>El fabricante introducido no es válido. ( min 10 max 20 )</b></div>';
+                $errors['nombre'] = 'El nombre introducido no es válido, ( min 3, max 20 )';
+            }
+
+            if($_POST['descripcion']==''){
+                $errors['descripcion'] = 'El campo descripción no puede estar vacio';
+            }  else if (!preg_match('/^[a-zA-Z0-9]{50,}$/',$_POST['descripcion'])) {
+                $errors['descripcion'] = 'La descripcion introducida no es válida, ( min 50 caracteres )';
+            }
+
+            if($_POST['fabricante']==''){
+                $errors['fabricante'] = 'El campo fabricante no puede estar vacio';
+            }  else if (!preg_match('/^[a-zA-Z0-9]{10,20}$/',$_POST['fabricante'])) {
+                $errors['fabricante'] = 'El fabricante introducido no es válido. ( min 10 max 20 )';
+            }
+
+            if($_POST['fecha']==''){
+                $errors['fecha'] = 'El campo fecha no puede estar vacio';
             } else if (!preg_match('/^(0[1-9]|[12]\d|3[01])-(0[1-9]|1[0-2])-(19|20)\d{2}$/',$_POST['fecha'])) {
-                $errors = true;
-                echo '<div class="error"><b>La fecha introducida no es válida.</b></div>';
-            } else {
-                $errors = false;
+                $errors['fecha'] = 'La fecha introducida no es válida.';
             }
         }
 ?>
@@ -51,8 +54,14 @@
 <body>
 
     <?php
-        if(empty($_POST) || $errors ){
+        if(empty($_POST) || isset($errors) ){
             
+            if(isset($errors)){
+                echo 'El formulario tiene errores';
+                foreach($errors as $error){
+                    echo '<div class="error">'.$error.'</div>';
+                }
+            }
             
     ?>
 
@@ -60,7 +69,7 @@
         codigo <input type="text" name="codigo" value="<?= (isset($_POST['codigo']))? $_POST['codigo'] : '' ?>"><br>
         nombre <input type="text" name="nombre" value="<?= (isset($_POST['nombre']))? $_POST['nombre'] : '' ?>"><br>
         precio <input type="text" name="precio" value="<?= (isset($_POST['precio']))? $_POST['precio'] : '' ?>"><br>
-        descripción <input type="text" name="descripción" value="<?= (isset($_POST['descripción']))? $_POST['descripción'] : '' ?>"><br>
+        descripción <input type="text" name="descripcion" value="<?= (isset($_POST['descripcion']))? $_POST['descripcion'] : '' ?>"><br>
         fabricante <input type="text" name="fabricante" value="<?= (isset($_POST['fabricante']))? $_POST['fabricante'] : '' ?>"><br>
         fecha de adquisición <input type="text" name="fecha" value="<?= (isset($_POST['fecha']))? $_POST['fecha'] : '' ?>"><br>
         <input type="submit" value="registrarse">
@@ -74,10 +83,6 @@
         }
         
     ?>
-
-    
-
-    
     
 </body>
 </html>

@@ -67,3 +67,11 @@ img{
     width: 200px;
     height: 100px;
 }
+
+#photo{
+    height: 200px;
+}
+
+.margen{
+    margin: 90px;
+}

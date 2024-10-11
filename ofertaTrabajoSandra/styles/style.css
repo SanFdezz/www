@@ -1,0 +1,13 @@
+body{
+    background-color: azure;
+    color: rgb(66, 72, 72);
+}
+
+.footer{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px;
+    background-color: cadetblue;
+    color: rgb(202, 225, 225);
+}

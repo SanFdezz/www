@@ -7,4 +7,4 @@
      */
 ?>
     <div>SANDRA FERNÁNDEZ ÁVILA</div>
-    <div><img src="images/myself.jpg" alt="foto de mi misma" height="200px" ></div>
+    <div><img src="images/myself.jpg" alt="foto de mi misma" id="photo" ></div>
