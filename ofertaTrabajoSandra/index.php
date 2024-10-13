@@ -18,6 +18,8 @@ $dni = '/^\d{8}[A-Za-z]$/'; //expresion regular para evaluar el dni español
 
 if(!empty($_POST)){
 
+    // validaciones del formulario
+
     foreach($_POST as $key => $value){
         $_POST[$key] = trim($value);
     }
