@@ -51,8 +51,7 @@ if(!empty($_POST)){
     } else if (!preg_match($dni,$_POST['dni'])) {
         $errors['dni'] = 'El DNI introducido no es válido, ( ej: 12345678A )';
     }
-
-    if($_POST['address']==''){
+   if($_POST['address']==''){
         $errors['address'] = 'El campo "dirección" no puede estar vacio';
     } else if (!preg_match($address,$_POST['address'])) {
         $errors['address'] = 'La dirección introducida no es válida, ( ej: Avenida Cardenal Benlloch 56 )';
@@ -74,6 +73,27 @@ if(!empty($_POST)){
         $errors['birthdate'] = 'El campo "fecha de nacimiento" no puede estar vacio';
     } else if (!preg_match($birthdate,$_POST['birthdate'])) {
         $errors['birthdate'] = 'El cumpleaños introducido no es válido, ( ej: 10-10-2022 )';
+    }
+
+    if($_FILES['photo']['error'] != UPLOAD_ERR_OK){
+        switch ($_FILES['photo']['error']){
+            case UPLOAD_ERR_INI_SIZE:
+            case UPLOAD_ERR_FORM_SIZE: $errors['size'] = 'El archivo se excede en tamaño.';
+                break;
+            case UPLOAD_ERR_PARTIAL: $errors['partial'] = 'Solo se ha podido subir parte del archivo, inténtalo de nuevo';
+                break;
+            case UPLOAD_ERR_NO_FILE: $errors['noFile'] = 'No se ha podido subir el archivo.';
+                break;
+            default: $errors['undefined'] = 'Error indeterminado';
+        }
+    } else if($_FILES['photo']['type'] != 'image/jpeg' || $_FILES['photo']['type'] != 'image/png'){
+        $errors['wrongType'] = 'El archivo no es del tipo indicado (.png/.jpg)';
+    }
+
+    if(!isset($errors)){
+        if(is_uploaded_file($_FILES['photo']['tmp_name'])){
+            $new_
+        }
     }
 
 }
@@ -100,16 +120,18 @@ if(!empty($_POST)){
         }
     ?>
 
-    <form action="#" method="post">
-        usuario <input type="text" name="user" value="<?= (isset($_POST['user']))? $_POST['user'] : '' ?>"><br>
-        nombre <input type="text" name="name" value="<?= (isset($_POST['name']))? $_POST['name'] : '' ?>"><br>
-        apellido 1 <input type="text" name="surname1" value="<?= (isset($_POST['surname1']))? $_POST['surname1'] : '' ?>"><br>
-        apellido 2 <input type="text" name="surname2" value="<?= (isset($_POST['surname2']))? $_POST['surname2'] : '' ?>"><br>
-        DNI <input type="text" name="dni" value="<?= (isset($_POST['dni']))? $_POST['dni'] : '' ?>"><br>
-        dirección <input type="text" name="address" value="<?= (isset($_POST['address']))? $_POST['address'] : '' ?>"><br>
-        correo <input type="text" name="mail" value="<?= (isset($_POST['mail']))? $_POST['mail'] : '' ?>"><br>
-        teléfono <input type="text" name="phoneNumber" value="<?= (isset($_POST['phoneNumber']))? $_POST['phoneNumber'] : '' ?>"><br>
-        fecha de nacimiento <input type="text" name="birthdate" value="<?= (isset($_POST['birthdate']))? $_POST['birthdate'] : '' ?>"><br>
+    <form action="#" method="post" enctype="multipart/form-data">
+        Usuario: <input type="text" name="user" value="<?= (isset($_POST['user']))? $_POST['user'] : '' ?>"><br>
+        Nombre: <input type="text" name="name" value="<?= (isset($_POST['name']))? $_POST['name'] : '' ?>"><br>
+        Apellido 1: <input type="text" name="surname1" value="<?= (isset($_POST['surname1']))? $_POST['surname1'] : '' ?>"><br>
+        Apellido 2: <input type="text" name="surname2" value="<?= (isset($_POST['surname2']))? $_POST['surname2'] : '' ?>"><br>
+        DNI: <input type="text" name="dni" value="<?= (isset($_POST['dni']))? $_POST['dni'] : '' ?>"><br>
+        Dirección: <input type="text" name="address" value="<?= (isset($_POST['address']))? $_POST['address'] : '' ?>"><br>
+        Correo: <input type="text" name="mail" value="<?= (isset($_POST['mail']))? $_POST['mail'] : '' ?>"><br>
+        Teléfono: <input type="text" name="phoneNumber" value="<?= (isset($_POST['phoneNumber']))? $_POST['phoneNumber'] : '' ?>"><br>
+        Fecha de nacimiento: <input type="text" name="birthdate" value="<?= (isset($_POST['birthdate']))? $_POST['birthdate'] : '' ?>"><br>
+        Foto: (.png/.jpg) <input type="file" name="photo"><br>
+        Currículum: <input type="file" name="cv"><br>
         <input type="submit" value="Enviar">
     </form>
 
