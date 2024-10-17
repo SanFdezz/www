@@ -120,15 +120,15 @@ if(!empty($_POST)){
     ?>
 
     <form action="#" method="post" enctype="multipart/form-data">
-        Usuario: <input type="text" name="user" value="<?= (isset($_POST['user']))? $_POST['user'] : '' ?>"><br>
-        Nombre: <input type="text" name="name" value="<?= (isset($_POST['name']))? $_POST['name'] : '' ?>"><br>
-        Apellido 1: <input type="text" name="surname1" value="<?= (isset($_POST['surname1']))? $_POST['surname1'] : '' ?>"><br>
+        Usuario: <input type="text" name="user" placeholder="user1234" value="<?= (isset($_POST['user']))? $_POST['user'] : '' ?>"><br>
+        Nombre: <input type="text" name="name" placeholder="Pedro" value="<?= (isset($_POST['name']))? $_POST['name'] : '' ?>"><br>
+        Apellido 1: <input type="text" name="surname1" placeholder="Palotes" value="<?= (isset($_POST['surname1']))? $_POST['surname1'] : '' ?>"><br>
         Apellido 2: <input type="text" name="surname2" value="<?= (isset($_POST['surname2']))? $_POST['surname2'] : '' ?>"><br>
-        DNI: <input type="text" name="dni" value="<?= (isset($_POST['dni']))? $_POST['dni'] : '' ?>"><br>
-        Dirección: <input type="text" name="address" value="<?= (isset($_POST['address']))? $_POST['address'] : '' ?>"><br>
-        Correo: <input type="text" name="mail" value="<?= (isset($_POST['mail']))? $_POST['mail'] : '' ?>"><br>
-        Teléfono: <input type="text" name="phoneNumber" value="<?= (isset($_POST['phoneNumber']))? $_POST['phoneNumber'] : '' ?>"><br>
-        Fecha de nacimiento: <input type="text" name="birthdate" value="<?= (isset($_POST['birthdate']))? $_POST['birthdate'] : '' ?>"><br>
+        DNI: <input type="text" name="dni" placeholder="12345678A" value="<?= (isset($_POST['dni']))? $_POST['dni'] : '' ?>"><br>
+        Dirección: <input type="text" name="address" placeholder="direccion" value="<?= (isset($_POST['address']))? $_POST['address'] : '' ?>"><br>
+        Correo: <input type="text" name="mail" placeholder="ejemplo@gmail.com" value="<?= (isset($_POST['mail']))? $_POST['mail'] : '' ?>"><br>
+        Teléfono: <input type="text" name="phoneNumber" placeholder="123 456 789" value="<?= (isset($_POST['phoneNumber']))? $_POST['phoneNumber'] : '' ?>"><br>
+        Fecha de nacimiento: <input type="text" placeholder="10-10-2020" name="birthdate" value="<?= (isset($_POST['birthdate']))? $_POST['birthdate'] : '' ?>"><br>
         Foto: (.png/.jpg) <input type="file" name="photo"><br>
         Currículum: <input type="file" name="cv"><br>
         <input type="submit" value="Enviar">
