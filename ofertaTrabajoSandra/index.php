@@ -72,87 +72,91 @@ if(!empty($_POST)){
     } else if (!preg_match($birthdate,$_POST['birthdate'])) {
         $errors['birthdate'] = 'El cumpleaños introducido no es válido, ( ej: 10-10-2022 )';
     }
-}
 
-if(!empty($_FILES)){
-
-    // comprobamos la foto
-    if($_FILES['photo']['error'] != UPLOAD_ERR_OK){
-        switch ($_FILES['photo']['error']){
-            case UPLOAD_ERR_INI_SIZE:
-            case UPLOAD_ERR_FORM_SIZE: $errors['size'] = 'El archivo se excede en tamaño.';
-                break;
-            case UPLOAD_ERR_PARTIAL: $errors['partial'] = 'Solo se ha podido subir parte del archivo, inténtalo de nuevo';
-                break;
-            case UPLOAD_ERR_NO_FILE: $errors['noFile'] = 'No se ha podido subir el archivo.';
-                break;
-            default: $errors['undefined'] = 'Error indeterminado';
-        }
-    } else if($_FILES['photo']['type'] != 'image/jpeg' || $_FILES['photo']['type'] != 'image/png'){
-        $errors['wrongType'] = 'El archivo no es del tipo indicado (.png/.jpg)';
-    }
-
-    if(!isset($errors)){
-        if(is_uploaded_file($_FILES['photo']['tmp_name'])===true){
-            $newRoute = './images/candidates/'.$_POST['dni'].'.png';
-
-            if(is_file($newRoute) === true){
-                $errors['existingRoute'] = 'Ya existe una foto con ese nombre.';
-            } else if (!move_uploaded_file($_FILES['photo']['tmp_name'],$newRoute)){
-                $errors['moveProblem'] = 'No se ha podido mover el fichero a su destino';
-            }
-
-        } else {
-            $errors['posibleHack'] = 'No se ha podido cargar.';
-        }
-    }
-
-    //comprobamos el pdf
-    if($_FILES['cv']['error'] != UPLOAD_ERR_OK){
-        switch ($_FILES['cv']['error']){
-            case UPLOAD_ERR_INI_SIZE:
-            case UPLOAD_ERR_FORM_SIZE: $errors['size'] = 'El archivo se excede en tamaño.';
-                break;
-            case UPLOAD_ERR_PARTIAL: $errors['partial'] = 'Solo se ha podido subir parte del archivo, inténtalo de nuevo';
-                break;
-            case UPLOAD_ERR_NO_FILE: $errors['noFile'] = 'No se ha podido subir el archivo.';
-                break;
-            default: $errors['undefined'] = 'Error indeterminado';
-        }
-    } else if($_FILES['cv']['type'] != 'application/pdf'){
-        $errors['wrongType'] = 'El archivo no es del tipo indicado (.pdf)';
-    }
-
-    if(!isset($errors)){
-        if(is_uploaded_file($_FILES['cv']['tmp_name'])===true){
-            $newRoutePDF = './cvs/'.$_POST['dni'].'-'.$_POST['name'].'-'.$_POST['surname1'].'.pdf';
-
-            if(is_file($newRoutePDF) === true){
-                $errors['existingRoute'] = 'Ya existe un pdf con ese nombre.';
-            } else if (!move_uploaded_file($_FILES['cv']['tmp_name'],$newRoutePDF)){
-                $errors['moveProblem'] = 'No se ha podido mover el fichero a su destino';
-            }
-
-        } else {
-            $errors['posibleHack'] = 'No se ha podido cargar.';
-        }
-    }
-
-    //comprobamos finalmente
-    if(isset($errors)){
-        
-        if(is_file($newRoute)){
-            unlink($newRoute);
-        }
-
-        if(is_file($newRoutePDF)){
-            unlink($newRoutePDF);
-        }
-    }
-
-
-}
     
+    if(!empty($_FILES)){
+
+        // comprobamos la foto
+        if($_FILES['photo']['error'] != UPLOAD_ERR_OK){
+            switch ($_FILES['photo']['error']){
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE: $errors['size'] = 'El archivo se excede en tamaño.';
+                    break;
+                case UPLOAD_ERR_PARTIAL: $errors['partial'] = 'Solo se ha podido subir parte del archivo, inténtalo de nuevo';
+                    break;
+                case UPLOAD_ERR_NO_FILE: $errors['noFile'] = 'No se ha podido subir el archivo.';
+                    break;
+                default: $errors['undefined'] = 'Error indeterminado';
+            }
+        } else if($_FILES['photo']['type'] != 'image/jpeg' || $_FILES['photo']['type'] != 'image/png'){
+            $errors['wrongType'] = 'El archivo no es del tipo indicado (.png/.jpg)';
+        }
+
+        if(!isset($errors)){
+            if(is_uploaded_file($_FILES['photo']['tmp_name'])===true){
+                $newRoute = './images/candidates/'.$_POST['dni'].'.png';
+
+                if(is_file($newRoute) === true){
+                    $errors['existingRoute'] = 'Ya existe una foto con ese nombre.';
+                } else if (!move_uploaded_file($_FILES['photo']['tmp_name'],$newRoute)){
+                    $errors['moveProblem'] = 'No se ha podido mover el fichero a su destino';
+                }
+
+            } else {
+                $errors['posibleHack'] = 'No se ha podido cargar.';
+            }
+        }
+
+        //comprobamos el pdf
+        if($_FILES['cv']['error'] != UPLOAD_ERR_OK){
+            switch ($_FILES['cv']['error']){
+                case UPLOAD_ERR_INI_SIZE:
+                case UPLOAD_ERR_FORM_SIZE: $errors['size'] = 'El archivo se excede en tamaño.';
+                    break;
+                case UPLOAD_ERR_PARTIAL: $errors['partial'] = 'Solo se ha podido subir parte del archivo, inténtalo de nuevo';
+                    break;
+                case UPLOAD_ERR_NO_FILE: $errors['noFile'] = 'No se ha podido subir el archivo.';
+                    break;
+                default: $errors['undefined'] = 'Error indeterminado';
+            }
+        } else if($_FILES['cv']['type'] != 'application/pdf'){
+            $errors['wrongType'] = 'El archivo no es del tipo indicado (.pdf)';
+        }
+
+        if(!isset($errors)){
+            if(is_uploaded_file($_FILES['cv']['tmp_name'])===true){
+                $newRoutePDF = './cvs/'.$_POST['dni'].'-'.$_POST['name'].'-'.$_POST['surname1'].'.pdf';
+
+                if(is_file($newRoutePDF) === true){
+                    $errors['existingRoute'] = 'Ya existe un pdf con ese nombre.';
+                } else if (!move_uploaded_file($_FILES['cv']['tmp_name'],$newRoutePDF)){
+                    $errors['moveProblem'] = 'No se ha podido mover el fichero a su destino';
+                }
+
+            } else {
+                $errors['posibleHack'] = 'No se ha podido cargar.';
+            }
+        }
+
+        //comprobamos finalmente
+        if(isset($errors)){
+            
+            if(is_file($newRoute)){
+                unlink($newRoute);
+            }
+
+            if(is_file($newRoutePDF)){
+                unlink($newRoutePDF);
+            }
+        }
+
+
+    } else {
+        $errors['noFilesAttached'] = 'No se puede registrar un usuario sin la foto o el cv';
+    }
+
+}
+
 ?>
 
 <!DOCTYPE html>
