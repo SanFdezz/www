@@ -92,7 +92,6 @@ if(!empty($_POST)){
 
     if(!isset($errors)){
         if(is_uploaded_file($_FILES['photo']['tmp_name'])){
-            $new_
         }
     }
 
