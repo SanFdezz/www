@@ -139,7 +139,6 @@ if(!empty($_FILES)){
     }
 
     //comprobamos finalmente
-
     if(isset($errors)){
         
         if(is_file($newRoute)){
