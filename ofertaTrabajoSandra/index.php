@@ -3,7 +3,7 @@
 *  Actividad 3 - Oferta de trabajo
 *
 * @author Sandra Fernández Ávila
-* @version 1.0 
+* @version 3.0 
 *
 */
 
@@ -75,7 +75,7 @@ if(!empty($_POST)){
 
     
     if(!empty($_FILES)){
-
+        
         // comprobamos la foto
         if($_FILES['photo']['error'] != UPLOAD_ERR_OK){
             switch ($_FILES['photo']['error']){
@@ -88,9 +88,12 @@ if(!empty($_POST)){
                     break;
                 default: $errors['undefined'] = 'Error indeterminado';
             }
-        } else if($_FILES['photo']['type'] != 'image/jpeg' || $_FILES['photo']['type'] != 'image/png'){
-            $errors['wrongType'] = 'El archivo no es del tipo indicado (.png/.jpg)';
+        } else if($_FILES['photo']['type'] != 'image/png'){
+            $errors['wrongType'] = 'El archivo no es del tipo indicado (.png)';
         }
+
+        $newRoute = '';
+        $newRouteMini = '';
 
         if(!isset($errors)){
             if(is_uploaded_file($_FILES['photo']['tmp_name'])===true){
@@ -100,6 +103,16 @@ if(!empty($_POST)){
                     $errors['existingRoute'] = 'Ya existe una foto con ese nombre.';
                 } else if (!move_uploaded_file($_FILES['photo']['tmp_name'],$newRoute)){
                     $errors['moveProblem'] = 'No se ha podido mover el fichero a su destino';
+                }
+
+                if(!isset($errors)){
+                    $originalImage = imagecreatefrompng('./images/candidates/'.$_POST['dni'].'.png');
+                    $newWidth = intval(imagesx($originalImage)/2);
+                    $newHeight= intval(imagesy($originalImage)/2);
+                    $newImage = imagecreatetruecolor($newWidth, $newHeight);
+                    imagecopyresized($newImage, $originalImage,0,0,0,0, $newWidth, $newHeight, imagesx($originalImage), imagesy($originalImage));
+                    // esto crea la imagen!!
+                    /* --> */imagepng($newImage, './images/candidates/thumbnails/'.$_POST['dni'].'- thumbnail.png');
                 }
 
             } else {
@@ -123,6 +136,8 @@ if(!empty($_POST)){
             $errors['wrongType'] = 'El archivo no es del tipo indicado (.pdf)';
         }
 
+        $newRoutePDF = '';
+
         if(!isset($errors)){
             if(is_uploaded_file($_FILES['cv']['tmp_name'])===true){
                 $newRoutePDF = './cvs/'.$_POST['dni'].'-'.$_POST['name'].'-'.$_POST['surname1'].'.pdf';
@@ -143,6 +158,10 @@ if(!empty($_POST)){
             
             if(is_file($newRoute)){
                 unlink($newRoute);
+            }
+
+            if(is_file('./images/candidates/thumbnails/'.$_POST['dni'].'- thumbnail.png')){
+                unlink('./images/candidates/thumbnails/'.$_POST['dni'].'- thumbnail.png');
             }
 
             if(is_file($newRoutePDF)){
@@ -198,7 +217,7 @@ if(!empty($_POST)){
 
         } else {
             echo '<h1>El formulario ha sido enviado correctamente.</h1>';
-            echo '<a href="index.php">HAZ EL FORMULARIO DE NUEVO</a>';
+            echo '<a href="candidatos.php">Mostrar candidatos</a>';
         }
         
     ?>
