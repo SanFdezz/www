@@ -175,10 +175,28 @@ class Hero{
         return $attackValue + $this->baseAttack;
     }
 
-    public function usePotion():bool{
-
+    public function defense(int $damage):int{
+        $defenseValue = $this->armor->__get('defense') + $this->baseDefense;
+        if(($damage - $defenseValue) > 0){
+            return $damage - $defenseValue;
+        } else {
+            return 0;
+        }
     }
 
-
+    public function usePotion(){
+        $bestPotion=0;
+        for($i=0; $i<count($this->potions); $i++){
+            if($this->potions[$i]->health > $bestPotion ){
+                $bestPotion = $this->potions[$i]->health;
+            }
+        }
+        $this->health += $bestPotion;
+        foreach($this->potions as $key => $potion){
+            if($potion->health === $bestPotion){
+                unset($this->potions[$key]);
+            }
+        }
+    }
 
 }

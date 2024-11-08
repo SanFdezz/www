@@ -32,7 +32,16 @@
 
     $daño = $heroe2->attack();
 
-    echo 'El daño realizado es de: '.$daño.' puntos.' ;
+    echo 'El daño realizado es de: '.$daño.' puntos. <br>' ;
+
+    $heroe2->addPotion(new potion(20));
+    $heroe2->addPotion(new potion(100));
+
+    $heroe2->usePotion();
+
+    $info2 = $heroe2->__toString();
+    echo $info2;
+    echo '<br>';
 
 ?>
 
