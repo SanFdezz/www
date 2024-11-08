@@ -8,7 +8,7 @@
 */
 
 $watermark = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/watermark/marca.png');
-$watermark = imagescale($watermark, 50);
+$watermark = imagescale($watermark, 70);
 
 // "activamos" el modo de fusión de la imagen
 imagealphablending($watermark, false);
@@ -23,7 +23,10 @@ $image = imagecreatefrompng($_SERVER['DOCUMENT_ROOT'].'/images/candidates/thumbn
 $imageWidth = imagesx($image);
 $imageHeight = imagesy($image);
 
-imagecopy($image, $watermark, $watermarkWidth, $watermarkHeight, 0, 0, $imageWidth, $imageHeight);
+$xPosition = ($imageWidth/2)-($watermarkWidth/2);
+$yPosition = ($imageHeight/2)-($watermarkHeight/2);
+
+imagecopy($image, $watermark, $xPosition, $yPosition, 0, 0, $watermarkWidth, $watermarkHeight);
 
 header('content-type: image/png');
 imagepng($image);

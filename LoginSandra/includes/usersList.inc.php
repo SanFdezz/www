@@ -7,6 +7,7 @@
 *
 */
 
+// unimos el archivo de la clase USUARIO a este script.
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/User.inc.php');
 
 $users = [
@@ -22,6 +23,7 @@ $users = [
     new User("Cartman", "respectmyauthority", "cartman@southpark.com"),
 ];
 
+//creamos una función que comprueba si el usuario existe en nuestra "BASE DE DATOS" (el array de arriba)
 function userExists(string $nameUser, array $users):mixed{
     foreach($users as $user){
         if($user->username === $nameUser){
