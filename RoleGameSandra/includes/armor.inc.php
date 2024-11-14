@@ -8,15 +8,19 @@
 *
 */
 
+// creamos la clase
 class armor {
+    //declaramos atributos
     private $name;
     private $defense;
 
-
+    // creamos el constructor
     public function __construct(string $name, int $defense){
         $this->name = $name;
         $this->defense = $defense;
     }
+
+    // y creamos los métodos mágicos __get(), __set() y __toString()
 
     public function __get(string $property){
         if(isset($this->$property)){

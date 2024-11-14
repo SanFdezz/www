@@ -4,15 +4,19 @@
 * Archivo donde se crea la clase Héroe del programa 
 *
 * @author Sandra Fernández Ávila
-* @version 1.0 
+* @version 3.0 
 *
 */
 
+
+// incluimos los archivos de las clases armadura, armas y pociones.
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/armor.inc.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/potion.inc.php');
 require_once($_SERVER['DOCUMENT_ROOT'].'/includes/weapon.inc.php');
 
+// creamos la clase
 class Hero{
+    // declaramos los atributos:
     private $name;
     private $species;
     private $class;
@@ -23,7 +27,7 @@ class Hero{
     private $baseAttack;
     private $baseDefense;
 
-
+    // creamos el constructor
     public function __construct(string $name, string $species, string $class, int $health=50, int $baseAttack=10, int $baseDefense=10){
         $this->name = $name;
         if(self::checkSpecies($species)){
@@ -65,6 +69,7 @@ class Hero{
         return false;
     }
 
+    // funcion set que compruebe tambien que no sean ni armas ni pociones y que las clases y especies sean las indicadas.
     public function __set(string $property, string $value){
         if(isset($this->$property)){
             // comprobamos que no sea ni el array de armas, ni el array de pociones.
@@ -89,12 +94,14 @@ class Hero{
         }
     }
 
+    // funcion get.
     public function __get(string $property){
         if(isset($this->$property)){
             return $this->$property;
         }
     }
 
+    // toString que devuelve el nombre, especie, clase y vida del héroe
     public function __toString(){
         return 'Nombre: '.$this->name .'|| Especie: '. $this->species . '|| Clase: '. $this->class . '|| Salud: '. $this->health;
     }
@@ -147,7 +154,7 @@ class Hero{
 
     // funcion que sirve para añadirle al heroe una armadura.
     public function addArmor(Armor $armor):bool{
-        if(!empty($this->armor)){
+        if(empty($this->armor)){
             $this->armor = $armor;
             return true;
         } else {
@@ -175,15 +182,18 @@ class Hero{
         return $attackValue + $this->baseAttack;
     }
 
+    // funcion que nos permite defendernos restandole la defensa al daño inflingido y luego relacionarlo con la salud para que surja efecto
     public function defense(int $damage):int{
-        $defenseValue = $this->armor->__get('defense') + $this->baseDefense;
+        $defenseValue = $this->armor->defense+ $this->baseDefense;
         if(($damage - $defenseValue) > 0){
+            $this->health -= ($damage-$defenseValue); 
             return $damage - $defenseValue;
         } else {
             return 0;
         }
     }
 
+    // funcion para usar las pociones que selecciona la que mayor cura realiza del inventario y la usa eliminandose del mismo.
     public function usePotion(){
         $bestPotion=0;
         for($i=0; $i<count($this->potions); $i++){

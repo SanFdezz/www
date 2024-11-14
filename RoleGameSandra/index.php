@@ -38,10 +38,28 @@
     $heroe2->addPotion(new potion(100));
 
     $heroe2->usePotion();
+    echo 'Se ha usado una poción curativa <br>';
 
     $info2 = $heroe2->__toString();
     echo $info2;
     echo '<br>';
+
+    $heroe2->__set('class','Asesino');
+    echo 'Se ha cambiado de clase <br>';
+    $info2 = $heroe2->__toString();
+    echo $info2;
+    echo '<br>';
+
+    $armadura = new armor('cuerdas',10);
+    $heroe2->addArmor($armadura);
+
+    echo 'El daño recibido es de:'.$heroe2->defense(30);
+    echo '<br>';
+
+    $info2 = $heroe2->__toString();
+    echo $info2;
+    echo '<br>';
+
 
 ?>
 

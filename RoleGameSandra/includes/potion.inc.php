@@ -8,13 +8,17 @@
 *
 */
 
+// creamos la clase
 class potion {
+    //declaramos atributos
     private $health;
 
-
+    // creamos el constructor
     public function __construct(int $health){
         $this->health = $health;
     }
+
+    // y creamos los métodos mágicos __get(), __set() y __toString()
 
     public function __get(string $property){
         if(isset($this->$property)){
