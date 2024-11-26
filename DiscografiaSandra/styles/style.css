@@ -1,0 +1,34 @@
+img{
+    height:50px;
+}
+
+.arrow{
+    height:20px;
+}
+
+.addForm{
+    background-color: cornflowerblue;
+    border-radius: 1vw;
+    color: aliceblue;
+    padding: 1vw;
+    width:25%;
+}
+
+.addConfirmation{
+    margin-top:1vw;
+    background-color:rgb(216, 128, 145);
+    border: 1vw rgb(76, 18, 30);
+    border-radius: 1vw;
+    color: aliceblue;
+    padding: 1vw;
+    width:25%;
+}
+
+.deleteButton{
+    background-color:crimson;
+    color:rgb(245, 233, 235);
+}
+
+.bin{
+    height: 15px;
+}

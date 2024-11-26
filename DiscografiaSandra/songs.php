@@ -66,48 +66,51 @@
 	
 	<h2>Canciones:</h2>
 	<table>
-		<th>
+		<!-- He añadido 'thead' y 'tbody' para diferenciar mejor cual es la cabecera y cuales son las columnas de datos. -->
+		<thead>
 			<tr>
-				Título
-				<a href="songs.php?field=s.title&order=asc"><img src="images/sort-asc.png" alt="ascendiente"></a>
-				<a href="songs.php?field=s.title&order=desc"><img src="images/sort-desc.png" alt="descendiente"></a>
+				<th>Título
+					<a href="songs.php?field=s.title&order=asc"><img src="images/sort-asc.png" alt="ascendiente" class="arrow"></a>
+					<a href="songs.php?field=s.title&order=desc"><img src="images/sort-desc.png" alt="descendiente" class="arrow"></a>
+				</th>
+				<th>Duración
+					<a href="songs.php?field=s.length&order=asc"><img src="images/sort-asc.png" alt="ascendiente" class="arrow"></a>
+					<a href="songs.php?field=s.length&order=desc"><img src="images/sort-desc.png" alt="descendiente" class="arrow"></a>
+				</th>
+				<th>Álbum
+					<a href="songs.php?field=a.title&order=asc"><img src="images/sort-asc.png" alt="ascendiente" class="arrow"></a>
+					<a href="songs.php?field=a.title&order=desc"><img src="images/sort-desc.png" alt="descendiente" class="arrow"></a>
+				</th>
+				<th>Grupo
+					<a href="songs.php?field=g.name&order=asc"><img src="images/sort-asc.png" alt="ascendiente" class="arrow"></a>
+					<a href="songs.php?field=g.name&order=desc"><img src="images/sort-desc.png" alt="descendiente" class="arrow"></a>
+				</th>
 			</tr>
-			<tr>
-				Duración
-				<a href="songs.php?field=s.length&order=asc"><img src="images/sort-asc.png" alt="ascendiente"></a>
-				<a href="songs.php?field=s.length&order=desc"><img src="images/sort-desc.png" alt="descendiente"></a>
-			</tr>
-			<tr>
-				Álbum
-				<a href="songs.php?field=a.title&order=asc"><img src="images/sort-asc.png" alt="ascendiente"></a>
-				<a href="songs.php?field=a.title&order=desc"><img src="images/sort-desc.png" alt="descendiente"></a>
-			</tr>
-			<tr>
-				Grupo
-				<a href="songs.php?field=g.name&order=asc"><img src="images/sort-asc.png" alt="ascendiente"></a>
-				<a href="songs.php?field=g.name&order=desc"><img src="images/sort-desc.png" alt="descendiente"></a>
-			</tr>
-		</th>
-	</table>
-	
-	<?php
-		// comprobamos si hay algún error, y si lo hay lo mostramos por pantalla.
-	   if(!empty($errors)){
-			foreach($errors as $error){
-				echo $error;
-			}
-		// si no ha habido ningun error, dependiendo de la cantidad de resultados mostraremos las canciones en los diversos ordenes especificados o un mensaje de no haber obtenido ninguno.
-	   } else {
-			if($songs==0){
-				echo 'No han habido resultados que coincidan con la búsqueda: '.$_GET['search'];
-			} else {
-				foreach($songsInfos as $song){
-					$song['length'] = gmdate("i:s", $song['length']); // esto es para mostrar la duración de la canción en formato mm:ss.
-					echo 'Título de la canción: '.$song['title'].'. Duración: '.$song['length'].'. Nombre del álbum: '.$song['album'].'. Nombre del grupo: .'.$song['group'].'<br><br>';
+		</thead>
+		<tbody>
+			<?php
+				if (!empty($errors)) {
+					foreach ($errors as $error) {
+						echo '<tr>'.$error.'</tr>';
+					}
+				} else {
+					if ($songs == 0) {
+						echo '<tr>No hay resultados que coincidan con la búsqueda.</tr>';
+					} else {
+						foreach ($songsInfos as $song) {
+							$song['length'] = gmdate("i:s", $song['length']); // gmdate es para convertir duración a mm:ss
+							echo '<tr>';
+							echo '<td>'.$song['title'].'</td>';
+							echo '<td>'.$song['length'].'</td>';
+							echo '<td>'.$song['album'].'</td>';
+							echo '<td>'.$song['group'].'</td>';
+							echo '</tr>';
+						}
+					}
 				}
-			}
-	   }
-	?>
+			?>
+		</tbody>
+	</table>
     <footer>
 		Sandra Fernández Ávila 2ºDAW 2024
     </footer>

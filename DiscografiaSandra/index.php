@@ -74,12 +74,11 @@
 				echo 'No han habido resultados que coincidan con la búsqueda: '.$_GET['search'];
 			} else {
 				foreach($groups as $group){
-					echo 'Nombre del grupo: '.$group['name'].'. Foto: <img src="grupos/'.$group['photo'].'" alt="foto del grupo" height="50px"> <br>';
+					echo 'Nombre del grupo: <a href="group.php?id='.$group['id'].'">'.$group['name'].'</a>. Foto: <a href="group.php?id='.$group['id'].'"><img src="grupos/'.$group['photo'].'" alt="foto del grupo"></a><br>';
 				}
 			}
 	   }
 	?>
-	
 	<br>
     <footer>
         Sandra Fernández Ávila 2ºDAW 2024
