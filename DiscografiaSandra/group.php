@@ -1,18 +1,20 @@
 <?php
 /**
-* 
+* Ampliacion de la actividad discografía, se le han añadido funcionalidades al programa como insertar albumes y eliminarlos.
 *
 * @author Sandra Fernández Ávila
-* @version 1.0 
+* @version 2.0 
 *
 */
 
+// expresiones regulares para controlar lo que nos llega por $_POST 
 $numeric = '/^\d{4}$/';
 $date = '/^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/';
 $price = '/^\d+(\.\d+)?$/';
 
-
+// si nos llegan datos por $_POST
 if(!empty($_POST)){
+    // hacemos la comprobación de errores:
     if($_POST['albumName']==''){
         $errors['nameNotInserted']='No se puede insertar un álbum sin título.';
     }
@@ -35,6 +37,7 @@ if(!empty($_POST)){
     }
 }
 
+// si no ha habido ningun error anterior, seguimos.
 if(!isset($errors)){
     // para ahorrarnos que el usuario intente hacer cosas raras:
     if(empty($_GET)){
@@ -42,21 +45,23 @@ if(!isset($errors)){
         exit;
     } else {
         try{
-
+            // si se ha confirmado un borrado realizamos este bloque
             if(isset($_GET['action']) && ($_GET['action']=='delete')){
-                $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
-                $connection = new PDO('mysql:host=localhost;dbname=discografia','vetustamorla','15151',$options);
-                $query = $connection->prepare('DELETE FROM songs WHERE album_id=:id;');
+                $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8'); // configuracion para la bbdd
+                $connection = new PDO('mysql:host=localhost;dbname=discografia','vetustamorla','15151',$options); // conexion a la bbdd
+                $query = $connection->prepare('DELETE FROM songs WHERE album_id=:id;'); // delete query
+                $query->bindParam(':id',$_GET['album']); // asignamos el valor del param
+                $query->execute(); // la ejecutamos
+                $query = $connection->prepare('DELETE FROM albums WHERE id=:id;'); // una vez borradas las canciones, borramos el album
                 $query->bindParam(':id',$_GET['album']);
                 $query->execute();
-                $query = $connection->prepare('DELETE FROM albums WHERE id=:id;');
-                $query->bindParam(':id',$_GET['album']);
-                $query->execute();
-                unset($query);
-                unset($connection);
+                unset($query); // eliminamos query
+                unset($connection); // cerramos conexion
             }
 
+            // si nos llegan datos por post, quiere decir que tenemos que realizar un insert
             if(!empty($_POST)){
+                // repetimos todo lo anterior pero con una query Insert
                 $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
                 $connection = new PDO('mysql:host=localhost;dbname=discografia','vetustamorla','15151',$options);
                 $query = $connection->prepare('INSERT INTO albums (title, year, format, buydate, price, group_id) VALUES (:title,:year,:format,:buydate,:price,:groupID);');
@@ -72,6 +77,7 @@ if(!isset($errors)){
                 unset($connection);
             }  
 
+            // realizamos otra conexion pero esta vez para comprobar que el grupo existe y se puede mostrar
             $options = array(PDO::MYSQL_ATTR_INIT_COMMAND => 'SET NAMES utf8');
             $connection = new PDO('mysql:host=localhost;dbname=discografia','vetustamorla','15151',$options);
             $query=$connection->prepare('SELECT id, name, photo FROM groups WHERE id=:id ORDER BY name;');
@@ -80,11 +86,13 @@ if(!isset($errors)){
             $results = $query->fetch(PDO::FETCH_ASSOC);
             $exists=$query->rowCount();
 
+            // si no existe enviamos al user al inicio
             if($exists==0){
                 header('Location: /index.php');
                 exit;
             }
 
+            // y si existe, realizamos un select para mostrar los albumes del grupo deseado
             $query = $connection->prepare("SELECT id, title, year, format, price FROM albums WHERE group_id=:id");
             $query->bindParam(':id',$_GET['id']);
             $query->execute();
@@ -93,38 +101,21 @@ if(!isset($errors)){
             unset($query);
             unset($connection);
 
+            // este trozo es para mostrar o ocultar la ventana de confirmacion del borrado.
             if(!empty($_GET['album'])&&!empty($_GET['action'])){
                 if($_GET['action']=='confirm'){
                     $delete = true;
-                } else if($_GET['action']=='delete'){
-
-                } else {
-                    header('Location: /index.php');
-                    exit;
                 }
             } 
 
+            // si ha habido error en la conexion, entrará al catch.
         } catch(Exception $exception) {
             $errors['wrongConnection']='Fallo al conectar';
-            echo $exception;
         }
     }
 
 
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 ?>
 
@@ -143,12 +134,15 @@ if(!isset($errors)){
     </header>
 
     <?php
+    // si hay errores los muestra
        if(!empty($errors)){
         foreach($errors as $error){
                echo $error.'<br>'; 
         }
        } else {
+        // si el grupo existe entra aqui.
             if($exists==1){
+                // si se ha solicitado un borrado mostramos esto
                 if(isset($delete)){
                 
     ?>                
@@ -162,6 +156,7 @@ if(!isset($errors)){
 
     <?php
                 }
+                // Mostramos la lista de álbumes que tiene asociados el grupo
                 echo '<h1>Álbumes del grupo '.$results['name'].':</h1>';
                 echo '<ul>';
                 foreach($albums as $album){
@@ -172,7 +167,7 @@ if(!isset($errors)){
             
     ?>
 
-
+        <!--Añadimos un formulario para que se puedan añadir álbumes al grupo que se envian los datos por POST-->
     <div class="addForm">
         <form action="#" method="post">
             <label>Nombre del álbum:
