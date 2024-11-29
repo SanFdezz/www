@@ -7,8 +7,9 @@
 *
 */
 
-
+// si se ha pulsado el btn de reiniciar las cookies entra aqui:
 if(isset($_GET['delete'])){
+	// ambas que existen en la aplicacion web serán modificadas a tener un tiempo negativo para asi borrarse.
 	setcookie('theme','yes',time()-1);
 	setcookie('cookiesAccepted','yes',time()-1);
 	header('location:act1triki.php');
@@ -17,19 +18,21 @@ if(isset($_GET['delete'])){
 
 
 
-
+// si no hay una cookie de tema, la creamos por defecto en oscuro.
 if(!isset($_COOKIE['theme'])){
 	setcookie('theme','dark');
 	header('location:act1triki.php');
 	exit();
 }
 
+// si ha aceptado las cookies, creamos la cookie responsable de recordarlo y que caduca al minuto.
 if(isset($_GET['accepted'])){
 	setcookie('cookiesAccepted','accepted',time()+60);
 	header('location:act1triki.php');
 	exit();
 }
 
+// si se ha pulsado el boron de tema y es alguno de los aceptados, se cambiará la cookie a el nuevo tono.
 if(isset($_GET['theme']) && in_array($_GET['theme'],['dark','light'])){
 	var_dump($_GET);
 	setcookie('theme',$_GET['theme']);
@@ -51,6 +54,7 @@ if(isset($_GET['theme']) && in_array($_GET['theme'],['dark','light'])){
 
 	<body>
 		<?php
+		// si no se han aceptado, se mostrará este trozo:
 		if(!isset($_COOKIE['cookiesAccepted'])){
 			echo '<div id="cookies">';
 			echo 'Este sitio web utiliza cookies propias y puede que de terceros.<br>Al utilizar nuestros servicios, aceptas el uso que hacemos de las cookies.<br>';
