@@ -1,7 +1,16 @@
 <?php
+/**
+* 
+* Página principal de la web donde se añaden, borran o eliminan los productos y se muestra el total de ellos.
+* @author Sandra Fernández Ávila
+* @version 1.0 
+*
+*/
 
-
-
+ini_set('session.name','SessionSandra');
+ini_set('session.cookie_httponly',1);
+ini_set('session.cookie_lifetime',300);
+session_start();
 
 
 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/env.inc.php');
@@ -20,7 +29,49 @@ try {
 	unset($query);
 	unset($connection);
 }
+
+if(!empty($_GET['add'])){
+	if(!isset($_SESSION['basket'])){
+		$_SESSION['basket'][$_GET['add']]=1;
+		header('location: /index');
+		exit;
+	} else {
+		$_SESSION['basket'][$_GET['add']] += 1;
+		header('location: /index');
+		exit;
+	}
+}
+
+if(!empty($_GET['subtract'])){
+	if(isset($_SESSION['basket'][$_GET['subtract']])){
+		if($_SESSION['basket'][$_GET['subtract']]-1 == 0){
+			unset($_SESSION['basket'][$_GET['subtract']]);
+			header('location: /index');
+			exit;
+		} else {
+			$_SESSION['basket'][$_GET['subtract']] -= 1;
+			header('location: /index');
+			exit;
+		}
+	}
+}
+
+if(!empty($_GET['remove'])){
+	if(isset($_SESSION['basket'][$_GET['remove']])){
+		unset($_SESSION['basket'][$_GET['remove']]);
+		header('location: /index');
+		exit;
+	}
+}
+
 ?>
+
+
+
+
+
+
+
 <!doctype html>
 <html lang="es">
 	<head>
@@ -31,11 +82,15 @@ try {
 	</head>
 
 	<body>
+
 		<?php
 			require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
 		?>
 
-<!-- Si el usuario no está logueado (no existe su variable de sesión): -->
+	<?php
+	   if(!isset($_SESSION['user'])){ // inicio del if
+	?>
+	
 		<h2>Regístrate para poder comprar en la tienda</h2>
 
 		<form action="signup" method="post">
@@ -57,15 +112,18 @@ try {
 		<div id="ofertas">
 			<a href="/sales"><img src="/img/ofertas.png" alt="Imagen acceso ofertas"></a>
 		</div>
-<!-- Fin usuario no logueado -->
-
-
-		<!-- Eliminar estos br --><br><br>
-
-
-<!-- Si el usuario está logueado (existe su variable de sesión): -->
+		<?php
+		   } else { //inicio del else y fin del if
+		$total = 0; 
+		foreach($_SESSION['basket']??[] as $elemento){
+			$total += $elemento;
+		}
+		?>
+		<div id="ofertas">
+			<a href="/sales"><img src="/img/ofertas.png" alt="Imagen acceso ofertas"></a>
+		</div>
 		<div id="carrito">
-			X
+			<?=$total?>
 			productos en el carrito.
 			<a href="/basket" class="boton">Ver carrito</a>
 		</div>
@@ -81,9 +139,9 @@ try {
 					echo '<span>'. $product->price .' €</span><br>';
 					if ($product->stock>0) {
 						echo '<span class="botonesCarrito">';
-							echo '<a href="" class="productos"><img src="/img/mas.png" alt="añadir 1"></a>';
-							echo '<a href="" class="productos"><img src="/img/menos.png" alt="quitar 1"></a>';
-							echo '<a href="" class="productos"><img src="/img/papelera.png" alt="quitar todos"></a>';
+							echo '<a href="/add/'.$product->id.'" class="productos"><img src="/img/mas.png" alt="añadir 1"></a>';
+							echo '<a href="/subtract/'.$product->id.'" class="productos"><img src="/img/menos.png" alt="quitar 1"></a>';
+							echo '<a href="/remove/'.$product->id.'" class="productos"><img src="/img/papelera.png" alt="quitar todos"></a>';
 						echo '</span>';
 						echo '<span>Stock: '. $product->stock .'</span>';
 					} else {
@@ -96,7 +154,10 @@ try {
 			}
 			?>
 		</section>
-<!-- Fin usuario logueado -->
+		<?php
+			} // fin del else
+		?>
+			
 
 	</body>
 </html>

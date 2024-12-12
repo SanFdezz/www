@@ -1,6 +1,9 @@
 <?php
 
-
+ini_set('session.name','SessionSandra');
+ini_set('session.cookie_httponly',1);
+ini_set('session.cookie_lifetime',300);
+session_start();
 
 
 
@@ -32,10 +35,10 @@ unset($connection);
 		<?php
 			require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
 
-			// Si el usuario no está logueado (no existe su variable de sesión) se mostrará la siguiente línea
-			echo '<a href="/">Regístrate aquí</a>';
-			
-		
+			if(!isset($_SESSION['user'])){
+				echo '<a href="/">Regístrate aquí</a>';
+			}
+					
 			echo '<h1>Artículos en oferta</h1>';
 			
 			echo '<section class="productos">';

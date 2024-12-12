@@ -1,15 +1,15 @@
 <?php
 
 
-
-
+ini_set('session.name','SessionSandra');
+ini_set('session.cookie_httponly',1);
+ini_set('session.cookie_lifetime',300);
+session_start();
 
 // Si el usuario ya está logueado se le redirigirá a index
-
-
-
-
-
+if(isset($_SESSION['user'])){
+    header('location:/');
+}
 
 // Si llegan datos del formulario hay que intentar hacer el login
 if(!empty($_POST)) {
@@ -24,7 +24,7 @@ if(!empty($_POST)) {
         $errors['password'] = 'La contraseña no puede estar en blanco.';
         
     if (!isset($errors)) {
-        try {
+        try { 
             // Si no hay errores se procede a comprobar las credenciales
             require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/env.inc.php');
             require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
@@ -34,22 +34,27 @@ if(!empty($_POST)) {
                 $query->bindParam(':user', $_POST['user']);
                 $query->bindParam(':mail', $_POST['user']);
                 $query->execute();
-
                 // Comprobaciones para el login
                 if ($query->rowCount()!=1) {
                     $errors['login'] = 'Error en el acceso';
                 } else {
                     // Existe solo un usuario que coincide para realizar el login
-
+                    $user = $query->fetchObject();
+                    if(password_verify($_POST['password'],$user->password)){
                     // Se comprueba si la contraseña es correcta
                     //  Si es correcta se almacenan los datos del usuario en la sesión y se redirige a index
-                        // unset($query);
-                        // unset($connection);
-                        // header ('location: /');
-                        // exit;
-                    // Si es incorrecto se almacena el error para mostrarlo en el body
+                        session_regenerate_id();
+                        $_SESSION['user']=$user->user;
+                        $_SESSION['rol']=$user->rol;
 
-
+                        unset($query);
+                        unset($connection);
+                        header ('location: /');
+                        exit;
+                    } else {
+                        // Si es incorrecto se almacena el error para mostrarlo en el body
+                        $errors['wrongLogin']='El login no es correcto';
+                    }
                 }
             } else {
                 throw new Exception('Error en la conexión a la BBDD');
