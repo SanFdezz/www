@@ -1,7 +1,7 @@
 <?php
 /**
 * 
-*
+* Header de la web de pedidos
 * @author Sandra Fernández Ávila
 * @version 1.0 
 *

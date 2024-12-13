@@ -1,5 +1,13 @@
 <?php
 
+/**
+* 
+* Archivo para registrarte en la pagina web
+* @author Sandra Fernández Ávila
+* @version 1.0 
+*
+*/
+
 ini_set('session.name','SessionSandra');
 ini_set('session.cookie_httponly',1);
 ini_set('session.cookie_lifetime',300);

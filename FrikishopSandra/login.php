@@ -1,4 +1,11 @@
 <?php
+/**
+* 
+* Archivo php para loguear al usuario en la página
+* @author Sandra Fernández Ávila
+* @version 1.0 
+*
+*/
 
 
 ini_set('session.name','SessionSandra');

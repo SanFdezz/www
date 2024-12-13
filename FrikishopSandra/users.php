@@ -1,5 +1,13 @@
 <?php
 
+/**
+* 
+* Archivo para ver todos los usuarios de la pagina web solo si el usuario tiene el rol de admin
+* @author Sandra Fernández Ávila
+* @version 1.0 
+*
+*/
+
 ini_set('session.name','SessionSandra');
 ini_set('session.cookie_httponly',1);
 ini_set('session.cookie_lifetime',300);
