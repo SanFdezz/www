@@ -1,0 +1,7 @@
+    SELECT e.id AS entry_id, e.text, user,
+    (SELECT count(l.entry_id) FROM likes l WHERE l.entry_id = e.id) AS likes,
+    (SELECT count(d.entry_id) FROM dislikes d WHERE d.entry_id = e.id) AS dislikes,
+    (SELECT count(c.entry_id) FROM comments c WHERE c.entry_id = e.id) AS comments
+    FROM users u, entries e, follows f
+    WHERE e.user_id = f.user_followed AND
+    :id=f.user_id AND f.user_followed = u.id;

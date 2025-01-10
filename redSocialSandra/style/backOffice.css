@@ -1,0 +1,31 @@
+body{ /*margenes de la web*/
+    margin: 0%;
+    padding: 0%; 
+    background-color: rgb(37, 123, 199);
+    height: 100%;
+}
+
+.error{
+    color: rgb(143, 8, 8);
+}
+
+
+.mainContainer{
+    background-color: beige;
+    width: 80%;
+    margin: auto;
+    padding-left: 3em;
+    padding-bottom: 2em;
+    height: 100vh
+}
+
+.registerBox{
+    width: 30%;
+    background-color: rgba(127, 255, 187, 0.447);
+    padding: 3em;
+    border-radius: 10px;
+}
+
+.registerText{
+    font-size: 1.5em;
+}

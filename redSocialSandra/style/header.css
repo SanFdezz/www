@@ -1,0 +1,18 @@
+@import url("fonts/style.css");
+
+*{
+    font-family: 'Gliker';
+}
+.logo{
+    display: flex;
+    align-items: center;
+}
+
+a{
+    text-decoration: none;
+    color: rgb(40, 148, 215);
+}
+
+header img{
+    height: 10vw;
+}

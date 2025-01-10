@@ -16,6 +16,7 @@ session_start();
 // Si el usuario ya está logueado se le redirigirá a index
 if(isset($_SESSION['user'])){
     header('location:/');
+    exit;
 }
 
 // Si llegan datos del formulario hay que intentar hacer el login

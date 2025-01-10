@@ -12,7 +12,7 @@ ini_set('session.cookie_httponly',1);
 ini_set('session.cookie_lifetime',300);
 session_start();
 
-
+/*
 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/env.inc.php');
 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
 try {
@@ -29,6 +29,7 @@ try {
 	unset($query);
 	unset($connection);
 }
+*/
 
 if(!empty($_GET['add'])){
 	if(!isset($_SESSION['basket'])){
