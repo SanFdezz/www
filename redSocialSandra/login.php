@@ -34,7 +34,7 @@ session_start();
             try{
                 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
                 $connection = getDBConnection('social', 'social', 'laicos');
-                $query = $connection->prepare('SELECT user,password FROM users WHERE (user=:user OR email=:mail);');
+                $query = $connection->prepare('SELECT user,password,id FROM users WHERE (user=:user OR email=:mail);');
                 $query->bindParam(':user', $_POST['user']);
                 $query->bindParam(':mail', $_POST['user']);
                 $query->execute();
@@ -45,6 +45,7 @@ session_start();
                     if(password_verify($_POST['password'],$user->password)){
                         session_regenerate_id();
                         $_SESSION['user']=$user->user;
+                        $_SESSION['id']=$user->id;
                         unset($query);
                         unset($connection);
                         header ('location: index.php');

@@ -36,3 +36,11 @@ body{ /*margenes de la web*/
 .myPhoto{
     width: 10em;
 }
+
+.buttonIMG{
+    height: 2em;
+    width: 2em;
+    background: none;
+    border: none;
+    outline: none;
+}
