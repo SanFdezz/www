@@ -62,7 +62,7 @@ if(!empty($_POST)){
     try{
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
         $connection = getDBConnection('social', 'social', 'laicos');
-        $query = $connection->prepare('SELECT e.id AS entry_id, e.text, user,
+        $query = $connection->prepare('SELECT e.id AS entry_id, e.text, user, u.id,
             (SELECT count(l.entry_id) FROM likes l WHERE l.entry_id = e.id) AS likes,
             (SELECT count(d.entry_id) FROM dislikes d WHERE d.entry_id = e.id) AS dislikes,
             (SELECT count(c.entry_id) FROM comments c WHERE c.entry_id = e.id) AS comments
@@ -79,7 +79,6 @@ if(!empty($_POST)){
 
     } catch(Exception $ex){
         $errors['wrongConnection'] = 'Ha ocurrido un problema';
-        echo $errors['wrongConnection'];
     } 
 
 ?>
@@ -127,8 +126,8 @@ if(!empty($_POST)){
         } else {
             foreach($postsInfo as $post){
                 echo '<div class="post">';
-                echo '<a href="user.php" class="user">'.$post->user.'</a><br>';
-                echo '<a href="entry.php" class="postContent">'.$post->text.'</a><br>';
+                echo '<a href="user.php?id='.$post->id.'" class="user">'.$post->user.'</a><br>';
+                echo '<a href="entry.php?id='.$post->entry_id.'" class="postContent">'.$post->text.'</a><br>';
                 echo '<div class="todo">';
                 echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="like"></button>';
                 echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeDislike.png" alt="dislike"></button>';

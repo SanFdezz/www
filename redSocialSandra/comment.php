@@ -11,6 +11,36 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+if(empty($_POST)){
+    header('location:index.php');
+    exit;
+}
+
+if($_POST['comment']==''){
+    $errors['emptyComment']='No se admiten comentarios vacios.';
+}
+
+if(!isset($errors)){
+    try {
+        require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
+        $connection = getDBConnection('social', 'social', 'laicos');
+        $query = $connection->prepare('INSERT INTO comments (entry_id,user_id,text) VALUES (:eID,:userID,:text);');
+        $query->bindParam('eID',$_POST['entry']);
+        $query->bindParam('userID',$_SESSION['id']);
+        $query->bindParam('text',$_POST['comment']);
+        $query->execute();
+        unset($connection);
+        unset($query);
+        header('location:entry.php?id='.$_POST['entry']);
+        exit;
+    }  catch(Exception $ex){
+        $errors['wrongConnection'] = 'Ha ocurrido un problema';
+    } 
+}
+
+
+
+
 ?>
 
 <!DOCTYPE html>
@@ -26,6 +56,11 @@ session_start();
     <div class="mainContainer">
     <?php
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
+        if(isset($errors)){
+            foreach($errors as $error){
+                echo $error;
+            }
+        }
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/footer.inc.php');
     ?>
     </div>

@@ -11,6 +11,24 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+if(empty($_GET['id'])){
+    header('location:index.php');
+    exit;
+}
+
+try {
+    require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
+    $connection = getDBConnection('social', 'social', 'laicos');
+    $query = $connection->prepare('SELECT ');
+
+
+    unset($query);
+    unset($connection);
+} catch(Exception $ex){
+    $errors['wrongConnection'] = 'Ha ocurrido un problema';
+    echo $errors['wrongConnection'];
+} 
+
 ?>
 
 <!DOCTYPE html>
