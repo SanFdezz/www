@@ -9,17 +9,22 @@ body{ /*margenes de la web*/
     color: rgb(143, 8, 8);
 }
 
+html {
+    height: 100%; /* Asegura que el html y el body ocupen toda la altura de la ventana */
+    margin: 0;    /* Elimina márgenes predeterminados */
+    padding: 0;   /* Elimina relleno predeterminado */
+}
 
-.mainContainer{
-    display: grid;
-    grid-template: auto 1fr auto / 1fr;
+
+.mainContainer {
     background-color: beige;
     width: 80%;
     margin: auto;
     padding-left: 3em;
     padding-right: 3em;
-    padding-bottom: 2em;
-    height: 100%;
+    min-height: 100%; /* Para asegurar que crezca al menos hasta el tamaño del viewport */
+    display: flex;    /* Opcional: para soporte de alineación interna */
+    flex-direction: column; /* Opcional: organización en columnas */
 }
 
 .registerBox{
@@ -54,10 +59,17 @@ body{ /*margenes de la web*/
 }
 
 .user{
-    color: rgb(0, 0, 0);
+    color: rgb(37, 92, 141);
+    font-weight: bold;
     font-size: 1.5em;
 }
 
 .postContent{
-    color: rgb(60, 74, 62);
+    color: rgb(0, 0, 0);
+}
+
+.todo{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1em;
 }

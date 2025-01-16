@@ -74,6 +74,8 @@ if(!empty($_POST)){
         $query->execute();
         $postsInfo = $query->fetchAll(PDO::FETCH_OBJ);
         //var_dump($postsInfo);
+        unset($query);
+        unset($connection);
 
     } catch(Exception $ex){
         $errors['wrongConnection'] = 'Ha ocurrido un problema';
@@ -128,9 +130,7 @@ if(!empty($_POST)){
                 echo '<a href="user.php" class="user">'.$post->user.'</a><br>';
                 echo '<a href="entry.php" class="postContent">'.$post->text.'</a><br>';
                 echo '<div class="todo">';
-                echo '<button class="buttonIMG"><img class="buttonIMG" src="images/like.png" alt="like"></button>';
                 echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="like"></button>';
-                echo '<button class="buttonIMG"><img class="buttonIMG" src="images/dislike.png" alt="dislike"></button>';
                 echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeDislike.png" alt="dislike"></button>';
                 echo '<span>Comentarios:'.$post->comments.'</span>';
                 echo'</div>';
