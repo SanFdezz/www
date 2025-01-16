@@ -68,19 +68,17 @@ if(!empty($_POST)){
             (SELECT count(c.entry_id) FROM comments c WHERE c.entry_id = e.id) AS comments
             FROM users u, entries e, follows f
             WHERE e.user_id = f.user_followed AND
-            :id=f.user_id AND f.user_followed = u.id;');
+            :id=f.user_id AND f.user_followed = u.id
+            ORDER BY e.date DESC;');
         $query->bindParam('id',$_SESSION['id']); 
         $query->execute();
-        $postsInfo = $query->fetchObject();
-        var_dump($postsInfo);
+        $postsInfo = $query->fetchAll(PDO::FETCH_OBJ);
+        //var_dump($postsInfo);
 
     } catch(Exception $ex){
         $errors['wrongConnection'] = 'Ha ocurrido un problema';
         echo $errors['wrongConnection'];
     } 
-
-
-
 
 ?>
 
@@ -125,14 +123,20 @@ if(!empty($_POST)){
     <?php    
             }   
         } else {
-            echo '<div>';
-            echo '<a href="user.php">'.$postsInfo->user.'</a><br>';
-            echo '<a href="entry.php">'.$postsInfo->text.'</a><br>';
-            echo '<button class="buttonIMG"><img class="buttonIMG" src="images/like.png" alt="like"></button>';
-            echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="dislike"></button><br>';
-            echo'</div>';
+            foreach($postsInfo as $post){
+                echo '<div class="post">';
+                echo '<a href="user.php" class="user">'.$post->user.'</a><br>';
+                echo '<a href="entry.php" class="postContent">'.$post->text.'</a><br>';
+                echo '<div class="todo">';
+                echo '<button class="buttonIMG"><img class="buttonIMG" src="images/like.png" alt="like"></button>';
+                echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="like"></button>';
+                echo '<button class="buttonIMG"><img class="buttonIMG" src="images/dislike.png" alt="dislike"></button>';
+                echo '<button class="buttonIMG"><img class="buttonIMG" src="images/beforeDislike.png" alt="dislike"></button>';
+                echo '<span>Comentarios:'.$post->comments.'</span>';
+                echo'</div>';
+                echo'</div> <br>';
+            }
         }    
-
     require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/footer.inc.php');
     ?>
     </div>

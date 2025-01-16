@@ -26,6 +26,7 @@
         <label>Búsqueda: <input placeholder="..." name="search"></label>
         <input type="submit" name="send">
     </form>
+    <br>
     <?php
     }
     ?>

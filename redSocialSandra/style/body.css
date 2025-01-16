@@ -2,7 +2,7 @@ body{ /*margenes de la web*/
     margin: 0%;
     padding: 0%; 
     background-color: rgb(37, 199, 135);
-        height: 100vh;
+    height: 100vh;
 }
 
 .error{
@@ -13,11 +13,11 @@ body{ /*margenes de la web*/
 .mainContainer{
     display: grid;
     grid-template: auto 1fr auto / 1fr;
-    
     background-color: beige;
     width: 80%;
     margin: auto;
     padding-left: 3em;
+    padding-right: 3em;
     padding-bottom: 2em;
     height: 100%;
 }
@@ -27,6 +27,7 @@ body{ /*margenes de la web*/
     background-color: rgba(127, 227, 255, 0.447);
     padding: 3em;
     border-radius: 10px;
+    margin: 1em;
 }
 
 .registerText{
@@ -43,4 +44,20 @@ body{ /*margenes de la web*/
     background: none;
     border: none;
     outline: none;
+}
+
+.post{
+    background-color: rgba(144, 229, 231, 0.541);
+    margin: 3em;
+    padding: 1.5em;
+    border-radius: 1em;
+}
+
+.user{
+    color: rgb(0, 0, 0);
+    font-size: 1.5em;
+}
+
+.postContent{
+    color: rgb(60, 74, 62);
 }

@@ -26,6 +26,23 @@ session_start();
     <div class="mainContainer">
     <?php
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
+
+        if(empty($_POST)||isset($errors)){
+            if(isset($errors)){
+                foreach($errors as $error){
+                    echo '<div class="error">'.$error.'</div><br>';
+                }
+            }
+    ?>
+            <div class="registerBox">
+                <form action="index.php" method="post">
+                    <label>NUEVA PUBLICACIÓN:</label>
+                    <input name="publication" type="text" placeholder="Escribe aqui..."><br>
+                    <input type="submit" name="send" value="enviar">
+                </form>
+            </div>
+    <?php
+        } // cierra el if
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/footer.inc.php');
     ?>
     </div>
