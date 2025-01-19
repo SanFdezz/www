@@ -44,7 +44,7 @@ try{
             foreach($posts as $post){
                 echo '<div class="post">';
                 echo '<a href="/entry.php?id='.$post->id.'">'.$post->text.'</a>';
-                echo '<button class="btn"><a href="/back-office/delete">ELIMINAR</a></button>';
+                echo '<button class="btn"><a href="/back-office/delete.php?entry='.$post->id.'">ELIMINAR</a></button>';
                 echo '</div>';
             }
            } else {

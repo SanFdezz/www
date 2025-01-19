@@ -15,6 +15,10 @@ if(empty($_GET['id'])){
     header('location:index.php');
     exit;
 } else {
+
+    $like = false;
+    $dislike = false;
+
     try {
         // para obtener la info relativa a la publicacion indicada
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
@@ -37,6 +41,50 @@ if(empty($_GET['id'])){
         $errors['wrongConnection'] = 'Ha ocurrido un problema';
         echo $errors['wrongConnection'];
     } 
+
+    if(isset($_GET['action'])){
+        if($_GET['action']==='like'){
+            try {
+                require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
+                $connection = getDBConnection('social', 'social', 'laicos');
+
+                $query = $connection->prepare('INSERT INTO likes (entry_id,user_id) VALUES (:entryID,:userID)');
+                $query->bindParam('entryID',$_GET['id']);
+                $query->bindParam('userID',$_SESSION['id']);
+                $query->execute();
+                
+                unset($query);
+                unset($connection);
+
+                $like = true;
+
+            } catch(Exception $ex){
+                $errors['wrongConnection'] = 'Ha ocurrido un problema';
+                echo $errors['wrongConnection'];
+            }     
+        } else if($_GET['action']==='dislike'){
+            try {
+                require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
+                $connection = getDBConnection('social', 'social', 'laicos');
+
+                $query = $connection->prepare('INSERT INTO dislikes (entry_id,user_id) VALUES (:entryID,:userID)');
+                $query->bindParam('entryID',$_GET['id']);
+                $query->bindParam('userID',$_SESSION['id']);
+                $query->execute();
+                
+                unset($query);
+                unset($connection);
+
+                $dislike = true;
+
+            } catch(Exception $ex){
+                $errors['wrongConnection'] = 'Ha ocurrido un problema';
+                echo $errors['wrongConnection'];
+            }  
+        }
+    }
+
+
 }
 
 
@@ -58,11 +106,21 @@ if(empty($_GET['id'])){
     <?php
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
           echo '<div class="post">';
-          echo '<a href="user.php" class="user">'.$post->user.'</a><br>';
-          echo '<a href="entry.php" class="postContent">'.$post->text.'</a><br>';
+          echo '<a href="/user.php" class="user">'.$post->user.'</a><br>';
+          echo '<a href="/entry.php?id='.$_GET['id'].'" class="postContent">'.$post->text.'</a><br>';
           echo '<div class="todo">';
-          echo '<a href="" class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="like"></a>';
-          echo '<a href="" class="buttonIMG"><img class="buttonIMG" src="images/beforeDislike.png" alt="dislike"></a>';
+          if($like){
+            echo '<img class="buttonIMG" src="images/like.png" alt="like">';
+          } else {
+            echo '<a href="/entry.php?id='.$_GET['id'].'&action=like" class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="like"></a>';
+
+          }
+
+          if($dislike){
+            echo '<img class="buttonIMG" src="images/dislike.png" alt="dislike">';
+          } else {
+            echo '<a href="/entry.php?id='.$_GET['id'].'&action=dislike" class="buttonIMG"><img class="buttonIMG" src="images/beforeDislike.png" alt="dislike"></a>';
+          }
           echo'</div>';
           echo'</div> <br>';
 

@@ -61,7 +61,6 @@ html {
 .user{
     color: rgb(37, 92, 141);
     font-weight: bold;
-    font-size: 1.5em;
 }
 
 .postContent{
@@ -72,6 +71,14 @@ html {
     display: flex;
     justify-content: space-around;
     padding-top: 1em;
+}
+
+.userInfo{
+    display: flex;
+    justify-content: space-around;
+    background-color: rgba(90, 186, 186, 0.245);
+    padding: 1em;
+    border-radius: 0.5em;
 }
 
 .footer{

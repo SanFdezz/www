@@ -11,27 +11,42 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
-if(empty($_POST)){
-    header('location: index.php');
-    exit;
+if(!empty($_GET)){
+    try {
+
+        require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
+        $connection = getDBConnection('social', 'social', 'laicos');
+        $query = $connection->prepare('INSERT INTO follows (user_id,user_followed) VALUES (:id,:followedID);');
+        $query->bindParam('id',$_SESSION['id']);
+        $query->bindParam('followedID',$_GET['id']);
+        $query->execute();
+
+        unset($query);
+        unset($connection);
+
+        header('location: /index.php');
+        exit;
+
+    } catch(Exception $ex){
+        $errors['wrongConnection'] = 'Ha ocurrido un problema';
+        echo $errors['wrongConnection'];
+    } 
+} else {
+    $toSearch = '%'.$_POST['search'].'%';
+    try {
+        require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
+        $connection = getDBConnection('social', 'social', 'laicos');
+        $query = $connection->prepare('SELECT user,id FROM users WHERE user LIKE :search');
+        $query->bindParam('search',$toSearch);
+        $query->execute();
+        $users = $query->fetchAll(PDO::FETCH_OBJ);
+        unset($query);
+        unset($connection);
+    } catch(Exception $ex){
+        $errors['wrongConnection'] = 'Ha ocurrido un problema';
+        echo $errors['wrongConnection'];
+    } 
 }
-
-$toSearch = '%'.$_POST['search'].'%';
-
-try {
-    require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
-    $connection = getDBConnection('social', 'social', 'laicos');
-    $query = $connection->prepare('SELECT user,id FROM users WHERE user LIKE :search');
-    $query->bindParam('search',$toSearch);
-    $query->execute();
-    $users = $query->fetchAll(PDO::FETCH_OBJ);
-    unset($query);
-    unset($connection);
-} catch(Exception $ex){
-    $errors['wrongConnection'] = 'Ha ocurrido un problema';
-    echo $errors['wrongConnection'];
-} 
-
 
 ?>
 
@@ -51,7 +66,10 @@ try {
         echo '<div id="content">';
         if($users){
             foreach ($users as $user) {
-                echo '<a class="user" href="user.php?id='.$user->id.'">'.$user->user.'</a><br>';
+                echo'<div>';
+                echo '<a class="user" href="/user.php?id='.$user->id.'">'.$user->user.'</a>   ';
+                echo '<a class="btn" href="/results.php?id='.$user->id.'">SEGUIR</a><br>';
+                echo'</div>';
             }
         } else {
             echo 'No hay resultados que coincidan con tu búsqueda.';
