@@ -1,31 +1,92 @@
 body{ /*margenes de la web*/
     margin: 0%;
     padding: 0%; 
-    background-color: rgb(37, 123, 199);
-    height: 100%;
+    background-color: rgb(37, 96, 199);
+    height: 100vh;
 }
 
 .error{
     color: rgb(143, 8, 8);
 }
 
+html {
+    height: 100%; /* Asegura que el html y el body ocupen toda la altura de la ventana */
+    margin: 0;    /* Elimina márgenes predeterminados */
+    padding: 0;   /* Elimina relleno predeterminado */
+}
 
-.mainContainer{
+
+.mainContainer {
     background-color: beige;
     width: 80%;
     margin: auto;
     padding-left: 3em;
-    padding-bottom: 2em;
-    height: 100vh
+    padding-right: 3em;
+    min-height: 100%; /* Para asegurar que crezca al menos hasta el tamaño del viewport */
+    display: flex;    /* Opcional: para soporte de alineación interna */
+    flex-direction: column; /* Opcional: organización en columnas */
 }
 
 .registerBox{
     width: 30%;
-    background-color: rgba(127, 255, 187, 0.447);
+    background-color: rgba(97, 234, 87, 0.447);
     padding: 3em;
     border-radius: 10px;
+    margin: 1em;
 }
 
 .registerText{
     font-size: 1.5em;
+}
+
+.myPhoto{
+    width: 10em;
+}
+
+.buttonIMG{
+    height: 2em;
+    width: 2em;
+    background: none;
+    border: none;
+    outline: none;
+}
+
+.post{
+    background-color: rgba(144, 229, 231, 0.541);
+    margin: 3em;
+    padding: 1.5em;
+    border-radius: 1em;
+    display: flex;
+    justify-content: space-around;
+}
+
+.user{
+    color: rgb(37, 92, 141);
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+.postContent{
+    color: rgb(0, 0, 0);
+}
+
+.todo{
+    display: flex;
+    justify-content: space-around;
+    padding-top: 1em;
+}
+
+.footer{
+    margin-top: 1em;
+}
+
+.btn{
+    border: none;
+    padding: 0.5em;
+    background-color: rgba(23, 164, 110, 0.437);
+    border-radius: 0.5em;
+}
+
+.btn a{
+    color: black;
 }

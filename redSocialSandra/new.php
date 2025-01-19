@@ -21,15 +21,14 @@ if(!empty($_POST)){
             require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
             $connection = getDBConnection('social', 'social', 'laicos');
             $query = $connection->prepare('INSERT INTO entries (text,user_id) VALUES (:text,:userID);');
-            $query->bindParam(':text',$_POST['publication']);
-            $query->bindParam(':userID',$_SESSION['id']);
+            $query->bindParam('text',$_POST['publication']);
+            $query->bindParam('userID',$_SESSION['id']);
             $query->execute();
             // hacemos una select para obtener el id de la entry y poder llevar al usuario a la pestaña del post.
             $query = $connection->prepare('SELECT id FROM entries WHERE user_id = :id ORDER BY date DESC;');
             $query->bindParam('id',$_SESSION['id']);
             $query->execute();
             $entryID = $query->fetchObject();
-            var_dump($entryID);
             unset($query);
             unset($connection);
             header('location:entry.php?id='.$entryID->id);

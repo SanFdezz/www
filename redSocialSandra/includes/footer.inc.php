@@ -8,7 +8,7 @@
 */
 ?>
 <br>
-<footer>
+<footer class="footer">
     <a href="author.php">Sandra Fernández Ávila ©</a>
     <div>2024-2025</div>
 </footer>

@@ -10,21 +10,21 @@
 
 <header>
     <div class="logo">
-        <a href="index.php"><img src="/images/clicky.png" alt="logoClicky"></a>
-        <h1><a href="index.php">Clicky</a></h1>
+        <a href="/index.php"><img src="/images/clicky.png" alt="logoClicky"></a>
+        <h1><a href="/index.php">Clicky</a></h1>
     </div>
     <?php
     if(!isset($_SESSION['user'])){
         echo '<h3>Parece que no estás logueado,<a href="login.php"> ¡Inicia sesión aquí!</a></h3>';
     } else {
     
-    echo '<h2><a href="back-office/account.php">Hola '.$_SESSION['user'].'!</a></h2>'
+    echo '<h2><a href="/back-office/account.php">Hola '.$_SESSION['user'].'!</a></h2>'
     ?>
-    <h3><a href="new.php">Postear</a></h3>
-    <h3><a href="close.php">Cerrar sesión</a></h3>
-    <form action="results.php" method="post">
-        <label>Búsqueda: <input placeholder="..." name="search"></label>
-        <input type="submit" name="send">
+    <h3><a href="/new.php">Postear</a></h3>
+    <h3><a href="/close.php">Cerrar sesión</a></h3>
+    <form action="/results.php" method="post">
+        <label>Búsqueda por usuario: <input placeholder="nombre usuario..." name="search"></label>
+        <input type="submit" name="send" value="buscar">
     </form>
     <br>
     <?php
