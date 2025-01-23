@@ -13,7 +13,7 @@ session_start();
 
 if(!empty($_GET)){
     try {
-
+        // SI SE HA PULSADO EL BOTON DE SEGUIR, SEGUIMOS AL USUARIO DESEADO
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
         $connection = getDBConnection('social', 'social', 'laicos');
         $query = $connection->prepare('INSERT INTO follows (user_id,user_followed) VALUES (:id,:followedID);');
@@ -32,6 +32,7 @@ if(!empty($_GET)){
         echo $errors['wrongConnection'];
     } 
 } else {
+    // BUSCAMOS TODOS LOS USUARIOS QUE COINCIDAN CON LO INDICADO
     $toSearch = '%'.$_POST['search'].'%';
     try {
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
@@ -64,6 +65,7 @@ if(!empty($_GET)){
     <?php
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
         echo '<div id="content">';
+        // MOSTRAMOS RESULTADOS
         if($users){
             foreach ($users as $user) {
                 echo'<div>';

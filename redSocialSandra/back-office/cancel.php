@@ -11,6 +11,7 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+// SI EXISTE EL POST DELETE, VAMOS BORRANDO TODA LA INFO DE NUESTRA CUENTA HASTA AL FINAL ELIMINARLA POR COMPLETO
 if(!empty($_POST['delete'])){
     try{
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
@@ -68,6 +69,7 @@ if(!empty($_POST['delete'])){
 <body>
     <div class="mainContainer">
         <?php
+            // CONFIRMACION DE BORRADO
            require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
            if(empty($_POST)){
             echo '<form action="/back-office/cancel.php" method="POST" class="registerBox">';

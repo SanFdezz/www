@@ -1,7 +1,7 @@
 <?php
 /**
 * 
-*
+* PAGINA PARA ELIMINAR LA SESION DE LA CUENTA
 * @author Sandra Fernández Ávila
 * @version 1.0 
 *

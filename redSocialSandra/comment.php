@@ -1,7 +1,7 @@
 <?php
 /**
 * 
-*
+* CODIGO PARA PODER ADMINISTRAR COMENTARIOS Y PODER COMENTAR EN POSTS DE LA GENTE
 * @author Sandra Fernández Ávila
 * @version 1.0 
 *
@@ -22,6 +22,7 @@ if($_POST['comment']==''){
 
 if(!isset($errors)){
     try {
+        // INSERTAMOS EL COMENTARIO UNA VEZ VEMOS QUE ES ADMISIBLE
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
         $connection = getDBConnection('social', 'social', 'laicos');
         $query = $connection->prepare('INSERT INTO comments (entry_id,user_id,text) VALUES (:eID,:userID,:text);');
@@ -55,6 +56,7 @@ if(!isset($errors)){
 <body>
     <div class="mainContainer">
     <?php
+    // SI NO ES ADMISIBLE, SE MUESTRA EL ERROR
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
         if(isset($errors)){
             foreach($errors as $error){

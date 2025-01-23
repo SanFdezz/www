@@ -16,7 +16,7 @@ if(!empty($_POST)){
     foreach($_POST as $key => $value){
         $_POST[$key] = trim($value);
     }
-
+    // CORRECCIONES AL FORMULARIO DE REGISTRO
     if($_POST['username']==''){
         $errors['wrongUser']='El usuario no puede estar vacío.';
     }
@@ -27,6 +27,7 @@ if(!empty($_POST)){
         $errors['wrongPwd']='La contraseña no puede estar vacía.';
     }
     
+    // REGISTRAMOS AL USUARIO SI NO EXISTE ANTERIORMENTE
     if(!isset($errors)){
         try{
             require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
@@ -59,6 +60,7 @@ if(!empty($_POST)){
 
 
 }
+// SACAMOS TODA LA INFORMACION NECESARIA PARA MOSTRAR LOS POSTS DE NUESTROS SEGUIDOS
     try{
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
         $connection = getDBConnection('social', 'social', 'laicos');
@@ -96,6 +98,7 @@ if(!empty($_POST)){
     <div class="mainContainer">
     <?php
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
+        // MOSTRAMOS FORMULARIO O ERRORES SI ES NECESARIO
         if(!isset($_SESSION['user'])){
             if(empty($_POST)||isset($errors)){
                 if(isset($errors)){
@@ -124,6 +127,7 @@ if(!empty($_POST)){
     <?php    
             }   
         } else {
+            // MOSTRAMOS LOS POSTS
             foreach($postsInfo as $post){
                 echo '<div class="post">';
                 echo '<a href="user.php?id='.$post->id.'" class="user">'.$post->user.'</a><br>';

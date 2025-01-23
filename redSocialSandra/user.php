@@ -16,6 +16,7 @@ if(empty($_GET['id'])){
     exit;
 }
 
+// OBTENEMOS TODA LA INFORMACION DEL USUARIO SELECCIONADO Y LA MOSTRAMOS
 try {
     require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
     $connection = getDBConnection('social', 'social', 'laicos');
@@ -58,6 +59,7 @@ try {
 <body>
 <div class="mainContainer">
         <?php
+        // AQUI MOSTRAMOS SU INFORMACION Y SUS POSTS
            require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
             echo '<div class="userInfo">'; 
             echo'<h1 class="user">'.$username->user.'</h1>';

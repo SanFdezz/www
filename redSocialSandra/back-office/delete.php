@@ -11,6 +11,8 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+// ELIMINAMOS LA ENTRADA DEL POST QUE DESEEMOS, JUNTO CON SUS COMENTS, LIKES Y DISLIKES
+
 try{
     require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
     $connection = getDBConnection('social', 'social', 'laicos');

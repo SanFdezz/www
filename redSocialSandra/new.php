@@ -11,12 +11,14 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+// MIRAMOS SI EL POST NO ES VACIO
 if(!empty($_POST)){
     if($_POST['publication'] == ""){
         $errors['emptyEntry']="Por favor, rellene el campo.";
     }
 
     if(!isset($errors)){
+        // SI NO HAY ERRORES, AÑADIMOS EL POST A LA CUENTA DEL USUARIO INDICADO
         try{
             require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
             $connection = getDBConnection('social', 'social', 'laicos');
@@ -62,6 +64,8 @@ if(!empty($_POST)){
                     echo '<div class="error">'.$error.'</div><br>';
                 }
             }
+
+            // FORMULARIO PARA AÑADIR UNA NUEVA PUBLICACION
     ?>
             <div class="registerBox">
                 <form action="new.php" method="post">

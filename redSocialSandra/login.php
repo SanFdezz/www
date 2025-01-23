@@ -16,7 +16,7 @@ session_start();
         header('location:/');
         exit;
     }
-
+    // CORRECCIONES DE EL INICIO DE SESION
     if(!empty($_POST)){
         foreach($_POST as $key => $value){
             $_POST[$key] = trim($value);
@@ -31,6 +31,7 @@ session_start();
         }
 
         if(!isset($errors)){
+            // COMPROBAMOS SI EXISTE, Y SI ES ASI, CREAMOS LA SESION
             try{
                 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
                 $connection = getDBConnection('social', 'social', 'laicos');

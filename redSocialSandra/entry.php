@@ -15,7 +15,7 @@ if(empty($_GET['id'])){
     header('location:index.php');
     exit;
 } else {
-
+    // INICIALIZAMOS ESTO PARA PODER CAMBIAR EL ESTADO DEL LIKE
     $like = false;
     $dislike = false;
 
@@ -47,7 +47,7 @@ if(empty($_GET['id'])){
             try {
                 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
                 $connection = getDBConnection('social', 'social', 'laicos');
-
+                // SI EL USUARIO DA LIKE:
                 $query = $connection->prepare('INSERT INTO likes (entry_id,user_id) VALUES (:entryID,:userID)');
                 $query->bindParam('entryID',$_GET['id']);
                 $query->bindParam('userID',$_SESSION['id']);
@@ -66,7 +66,7 @@ if(empty($_GET['id'])){
             try {
                 require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
                 $connection = getDBConnection('social', 'social', 'laicos');
-
+                // SI EL USUARIO DA DISLIKE:
                 $query = $connection->prepare('INSERT INTO dislikes (entry_id,user_id) VALUES (:entryID,:userID)');
                 $query->bindParam('entryID',$_GET['id']);
                 $query->bindParam('userID',$_SESSION['id']);
@@ -105,17 +105,19 @@ if(empty($_GET['id'])){
     <div class="mainContainer">
     <?php
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
+        // MOSTRAMOS EL POST
           echo '<div class="post">';
           echo '<a href="/user.php" class="user">'.$post->user.'</a><br>';
           echo '<a href="/entry.php?id='.$_GET['id'].'" class="postContent">'.$post->text.'</a><br>';
           echo '<div class="todo">';
+          // SI SE HA DADO LIKE O NO:
           if($like){
             echo '<img class="buttonIMG" src="images/like.png" alt="like">';
           } else {
             echo '<a href="/entry.php?id='.$_GET['id'].'&action=like" class="buttonIMG"><img class="buttonIMG" src="images/beforeLike.png" alt="like"></a>';
 
           }
-
+          // SI SE HA DADO DISLIKE O NO:
           if($dislike){
             echo '<img class="buttonIMG" src="images/dislike.png" alt="dislike">';
           } else {
@@ -131,7 +133,8 @@ if(empty($_GET['id'])){
             echo '<div>'.$comment->text.'</div><br>';
           }
 
-          
+
+          // Y EL FORMULARIO PARA COMENTAR
     ?>
 
     <form action="comment.php" method="post">

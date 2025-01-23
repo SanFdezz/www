@@ -1,7 +1,7 @@
 <?php
 /**
 * 
-*
+* EN ESTA PAGINA SIMPLEMENTE SE MUESTRA MI INFORMACION PERSONAL, COMO NOMBRE, FOTO, ETC
 * @author Sandra Fernández Ávila
 * @version 1.0 
 *

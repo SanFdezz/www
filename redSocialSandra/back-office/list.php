@@ -11,6 +11,8 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+
+// OBTENEMOS TODOS LOS POSTS DE NUESTRA CUENTA
 try{
     require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
     $connection = getDBConnection('social', 'social', 'laicos');
@@ -39,6 +41,7 @@ try{
 <body>
     <div class="mainContainer">
         <?php
+        // MOSTRAMOS TODOS LOS POSTS CON LA OPCION DE ELIMINARLOS.
            require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
            if($posts){
             foreach($posts as $post){

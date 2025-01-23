@@ -6,6 +6,8 @@
 * @version 1.0 
 *
 */
+
+// FOOTER DE LA WEB
 ?>
 <br>
 <footer class="footer">

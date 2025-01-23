@@ -11,6 +11,7 @@ ini_set('session.name','SessionClicky');
 ini_set('session.cookie_httponly',1);
 session_start();
 
+// SI NO NOS LLEGA NADA POR POST, OBTENEMOS LOS DATOS DE NUESTRO USUARIO
 if(empty($_POST)){
     try{
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
@@ -25,6 +26,7 @@ if(empty($_POST)){
         $errors['wrongConnection'] = 'Ha ocurrido un problema';
     }
 } else {
+    // SI NO, MODIFICAMOS NUESTROS DATOS A LOS NUEVOS.
     try{
         require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/connection.inc.php');
         $connection = getDBConnection('social', 'social', 'laicos');
@@ -56,6 +58,7 @@ if(empty($_POST)){
 <body>
     <div class="mainContainer">
     <?php
+        //CREAMOS EL FORMULARIO PARA EDITAR LA INFORMACION DE LA CUENTA
       	require_once($_SERVER['DOCUMENT_ROOT'] .'/includes/header.inc.php');
           if(empty($_POST)){
             echo '<form action="/back-office/account.php" method="post" class="registerBox">';
@@ -67,8 +70,8 @@ if(empty($_POST)){
             echo '<input type="submit" value="enviar">';
             echo '</form>';
           }
+          // Y AÑADIMOS LOS LINKS A VER LAS PUBLICACIONES Q TENEMOS O A ELIMINAR NUESTRA CUENTA
     ?>
-
     <a href="/back-office/list.php">PUBLICACIONES</a>
     <a href="/back-office/cancel.php">ELIMINAR CUENTA</a>
 
