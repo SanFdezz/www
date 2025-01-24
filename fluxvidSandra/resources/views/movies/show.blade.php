@@ -1,9 +1,7 @@
 @extends('layout')
-
 @section('title', 'Ficha de la película')
-
-@section('body_page')
-    <h1>Ficha de la película con id: {{ $id }}</h1>
+@section('body')
+    <h1>Ficha de la película con id: {{ $movieId->id }}</h1>
         <span>Título:</span>
             @if (is_null($movieId->title))
                 <span>No tiene título</span>
@@ -12,27 +10,16 @@
             @endif
             <br>
             <span>Año:</span>
-            @if (is_null($movieId->year))
-                <span>Sin información del año.</span>
-            @else
-                <span> {{ $movieId->year }} </span>
-            @endif
+            <span> {{ $movieId->year ?? 'Sin información del año.'}} </span>
             <br>
             <span>Puntuación:</span>
-            @if (is_null($movieId->rating))
-                <span>Sin puntuación.</span>
-            @else
-                <span> {{ $movieId->rating }} </span>
-            @endif
+                <span> {{ $movieId->rating ?? 'Sin puntuación.'}} </span>
             <br>
             <span>Sinopsis:</span>
-            @if (is_null($movieId->plot))
-                <span>No hay resumen disponible.</span>
-            @else
-                <span> {{ $movieId->plot }} </span>
-            @endif
+                <span> {{ $movieId->plot ?? 'No hay resumen disponible.'}} </span>
             <br>
-            <form action="{{ route('movies.destroy', $id)}}" method="post">
+            <form action="{{ route('movies.destroy',$movieId->id)}}" method="post">
+                {{--el @csrf funciona para conectar--}}
                 @csrf
                 @method('delete')
                 <input type="submit" value="Eliminar">

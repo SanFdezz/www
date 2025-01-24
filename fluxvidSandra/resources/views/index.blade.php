@@ -2,7 +2,7 @@
 
 @section('title','Peliculas')
 
-@section('body_page')
+@section('body')
 <h1>Bienvenido a FluxVid</h1>
 ¡Bienvenido a FluxVid, la revolucionaria aplicación de streaming de películas,
 donde la excelencia se encuentra con la innovación!
@@ -20,7 +20,7 @@ una nueva dimensión de entretenimiento.
 
 ¡Bienvenido al futuro del streaming de películas!
 <br><br>
-<img src="/images/images.jpg" alt="imagen_pelicula">
+<img src="/images/movie.jpg" alt="imagen_pelicula">
 <br><br>
 @endsection
 

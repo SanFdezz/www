@@ -1,38 +1,20 @@
 @section('title', 'Año de la peli')
-
 @extends('layout')
-
-@section('body_page')
-    <h1>Listado de películas del año {{$year}}</h1>
+@section('body')
+    <h1>Listado de películas del año {{$movies->first()->year}}</h1>
     <div class="movies">
         @forelse ($movies as $movie)
-            <span>Título:</span>
-            @if (is_null($movie->title))
-                <span>No tiene título</span>
-            @else
-               {{ $movie->title }}
-            @endif
+            <div>Título:</div>
+               <div>{{ $movie->title ?? 'No tiene título' }}</div>
             <br>
-            <span>Año:</span>
-            @if (is_null($movie->year))
-                <span>Sin información del año.</span>
-            @else
-                <span> {{ $movie->year }} </span>
-            @endif
+            <div>Año:</div>
+                <div> {{ $movie->year ?? 'Sin información del año.' }} </div>
             <br>
-            <span>Puntuación:</span>
-            @if (is_null($movie->rating))
-                <span>Sin puntuación.</span>
-            @else
-                <span> {{ $movie->rating }} </span>
-            @endif
+            <div>Puntuación:</div>
+                <div> {{ $movie->rating ?? 'Sin puntuación.'}} </div>
             <br>
-            <span>Sinopsis:</span>
-            @if (is_null($movie->plot))
-                <span>No hay resumen disponible.</span>
-            @else
-                <span> {{ $movie->plot }} </span>
-            @endif
+            <div>Sinopsis:</div>
+                <div> {{ $movie->plot ?? 'No hay resumen disponible'}} </div>
             <br>
         @empty
             No hay películas para mostrar.

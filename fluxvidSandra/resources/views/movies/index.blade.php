@@ -1,38 +1,24 @@
 @section('title', 'Listado de películas')
-
 @extends('layout')
-
-@section('body_page')
+@section('body')
     <h1>Listado de películas</h1>
-    <div class="movies">
+    <div>
         @forelse ($movies as $movie)
-            <span>Título:</span>
+            <div>Título:</div>
             @if (is_null($movie->title))
-                <span>No tiene título</span>
+                <div>No tiene título</div>
             @else
                 <a href="{{ route('movies.show', $movie->id) }}">{{ $movie->title }}</a>
             @endif
             <br>
-            <span>Año:</span>
-            @if (is_null($movie->year))
-                <span>Sin información del año.</span>
-            @else
-                <span> {{ $movie->year }} </span>
-            @endif
+            <div>Año:</div>
+                <div> {{ $movie->year ?? 'Sin información del año.'}} </div>
             <br>
-            <span>Puntuación:</span>
-            @if (is_null($movie->rating))
-                <span>Sin puntuación.</span>
-            @else
-                <span> {{ $movie->rating }} </span>
-            @endif
+            <div>Puntuación:</div>
+                <div> {{ $movie->rating ?? 'Sin puntuación.'}} </div>
             <br>
-            <span>Sinopsis:</span>
-            @if (is_null($movie->plot))
-                <span>No hay resumen disponible.</span>
-            @else
-                <span> {{ $movie->plot }} </span>
-            @endif
+            <div>Sinopsis:</div>
+                <div> {{ $movie->plot ?? 'No hay resumen disponible.'}} </div>
             <br>
         @empty
             No hay películas para mostrar.

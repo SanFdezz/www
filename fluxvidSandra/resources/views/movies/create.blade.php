@@ -1,6 +1,6 @@
 @section('title', 'create')
 
 @extends('layout')
-@section('body_page')
+@section('body')
     <h1>Nueva película</h1>
 @endsection

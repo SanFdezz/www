@@ -5,7 +5,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MovieController;
 //creamos la ruta, la ponemos por encima ya que es un nueva función dentro de
 //el controlador movies
-Route::get('movies/year/{year}', [MovieController::class, 'getMoviesByYear'])
+Route::get('movies/byyear/{year}', [MovieController::class, 'getMoviesByYear'])
 ->name('year');
 //cogemos todos los crud de una
 Route::resource('movies', MovieController::class);

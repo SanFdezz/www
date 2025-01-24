@@ -12,10 +12,7 @@ class MovieController extends Controller
      */
     public function index()
     {
-        //filtramos por visibility indicando que 1 es visible
-        //mantenemos 6 por pagina
         $movies = Movie::where('visibility',1)->paginate(6);
-        //le pasamos los registros obtenidos a la vista
         return view('movies.index', compact('movies'));
     }
 
@@ -41,7 +38,7 @@ class MovieController extends Controller
     public function show(string $id)
     {
         $movieId = Movie::find($id);
-        return view('movies.show',compact('movieId', 'id'));
+        return view('movies.show',compact('movieId'));
     }
 
     /**
@@ -68,11 +65,8 @@ class MovieController extends Controller
         return redirect()->route('movies.index');
     }
     public function getMoviesByYear(int $year){
-        //filtramos las películas según el año que nos llegue
-        //mostramos 6 por página
         $movies = Movie::where('year', $year)->paginate(6);
-        //pasamos el resultado a la vista byyear
-        return view('movies.byyear',compact('movies','year'));
+        return view('movies.byyear',compact('movies'));
 
     }
 }

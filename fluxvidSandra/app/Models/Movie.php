@@ -8,3 +8,5 @@ class Movie extends Model
 {
     //
 }
+
+
