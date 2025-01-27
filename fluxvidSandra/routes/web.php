@@ -3,12 +3,16 @@
 use Illuminate\Support\Facades\Route;
 //esto nos permite usar la ruta del controlador
 use App\Http\Controllers\MovieController;
+use App\Http\Controllers\DirectorController;
 //creamos la ruta, la ponemos por encima ya que es un nueva función dentro de
 //el controlador movies
 Route::get('movies/byyear/{year}', [MovieController::class, 'getMoviesByYear'])
 ->name('year');
-//cogemos todos los crud de una
+
+// esto pilla todos los CRUD directamente
 Route::resource('movies', MovieController::class);
+Route::resource('directors', DirectorController::class);
+
 
 Route::get('/', function () {
     return view('index');
