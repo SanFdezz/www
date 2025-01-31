@@ -13,6 +13,14 @@ return new class extends Migration
     {
         Schema::create('players', function (Blueprint $table) {
             $table->id();
+            $table->string('name',30);
+            $table->string('twitter');
+            $table->string('instagram');
+            $table->string('twitch');
+            $table->string('avatar')->nullable();
+            $table->boolean('visible')->default(false);
+            $table->integer('age');
+            $table->string('position');
             $table->timestamps();
         });
     }

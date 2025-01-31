@@ -10,4 +10,12 @@
                 <span> {{ $director->nationality ?? 'Sin nacionalidad conocida.'}} </span>
             <br>
             <br>
+            <ul>
+                @foreach ($director->movies as $movie)
+                    <li>
+                        <a href="{{ route('movies.show', $movie)}}">Título:{{$movie->title}} || Año: {{$movie->year}}</a>
+                    </li>
+                @endforeach
+            </ul>
+
 @endsection
