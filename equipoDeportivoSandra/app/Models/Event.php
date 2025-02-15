@@ -3,8 +3,11 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Event extends Model
 {
-    //
+    function users(): BelongsToMany{
+        return $this->belongsToMany(User::class);
+    }
 }
