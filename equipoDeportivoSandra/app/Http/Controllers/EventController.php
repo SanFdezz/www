@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Event;
 use Illuminate\Http\Request;
+use App\Http\Controllers\View;
+use App\Http\Requests\EventRequest;
 
 class EventController extends Controller
 {
@@ -20,20 +22,31 @@ class EventController extends Controller
      */
     public function create()
     {
-        //
+        return view('events.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(EventRequest $request)
     {
-        //
+        $event = new Event();
+        $event->name = $request->input('name');
+        $event->description = $request->input('description');
+        $event->location = $request->input('location');
+        $event->date = $request->input('date');
+        $event->hour = $request->input('hour');
+        $event->type = $request->input('type');
+        $event->tags = $request->input('tags');
+        $event->save();
+
+        return redirect()->route('index');
     }
 
     /**
      * Display the specified resource.
      */
+
     public function show(Event $event)
     {
         //

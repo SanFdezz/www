@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\PlayerRequest;
 use App\Models\Player;
 use Illuminate\Http\Request;
 
@@ -12,7 +13,7 @@ class PlayerController extends Controller
      */
     public function index()
     {
-        $players = Player::where('visible', true)->get(); // Solo jugadores visibles
+        $players = Player::where('visible', true)->get();
         return view('players.index', compact('players'));
     }
 
@@ -21,15 +22,26 @@ class PlayerController extends Controller
      */
     public function create()
     {
-        //
+        return view('players.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(PlayerRequest $request)
     {
-        //
+        $player = new Player();
+        $player->name = $request->input('name');
+        $player->twitter = $request->input('twitter');
+        $player->instagram = $request->input('instagram');
+        $player->twitch = $request->input('twitch');
+        $player->avatar = $request->input('avatar');
+        $player->age = $request->input('age');
+        $player->position = $request->input('position');
+        $player->visible = 1;
+        $player->save();
+
+        return redirect()->route('players.show',$player->id);
     }
 
     /**
@@ -45,7 +57,7 @@ class PlayerController extends Controller
      */
     public function edit(Player $player)
     {
-        //
+        return view('players.edit',compact('player'));
     }
 
     /**
@@ -53,7 +65,9 @@ class PlayerController extends Controller
      */
     public function update(Request $request, Player $player)
     {
-        //
+        $player->visible= $request->input('visible');
+        $player->save();
+        return redirect()->route('players.index');
     }
 
     /**
