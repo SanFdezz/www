@@ -4,7 +4,7 @@
 
 @section('body')
 
-<form action="{{route('players.store')}}" method="post">
+<form action="{{route('players.store')}}" method="post" enctype="multipart/form-data">
     @csrf
 
     <label for="name">Nombre:</label><br>
@@ -20,7 +20,7 @@
     <input type="text" name="twitch" id="twitch" value="{{old('twitch')}}"><br>
 
     <label for="avatar">Ruta de la foto:</label><br>
-    <input type="text" name="avatar" id="avatar" value="{{old('avatar')}}"><br>
+    <input type="file" name="avatar" accept="image/*" id="avatar" required><br>
 
     <label for="age">Edad:</label><br>
     <input type="text" name="age" id="age" value="{{old('age')}}"><br>

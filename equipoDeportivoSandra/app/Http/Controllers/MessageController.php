@@ -30,6 +30,7 @@ class MessageController extends Controller
      */
     public function store(MessageRequest $request)
     {
+        $
         $message = new Message();
         $message->name = $request->input('name');
         $message->subject = $request->input('subject');

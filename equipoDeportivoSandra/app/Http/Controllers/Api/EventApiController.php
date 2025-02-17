@@ -13,7 +13,10 @@ class EventApiController extends Controller
      */
     public function index()
     {
-        //
+        // Obtener eventos de la base de datos
+        $eventos = Event::all();
+        // Devolver como JSON
+        return response()->json($eventos);
     }
 
     /**
@@ -29,7 +32,7 @@ class EventApiController extends Controller
      */
     public function show(Event $event)
     {
-        //
+        return response()->json($event);
     }
 
     /**

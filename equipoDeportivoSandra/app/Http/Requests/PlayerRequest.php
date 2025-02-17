@@ -26,7 +26,7 @@ class PlayerRequest extends FormRequest
             'twitter' => 'required',
             'instagram' => 'required',
             'twitch' => 'required',
-            'avatar' => 'nullable',
+            'avatar' => 'nullable|required|image|mimes:jpg,jpeg,png,webp|max:2048',
             'age' => 'required|integer|min:15|max:45',
             'position' => 'required|string',
         ];

@@ -5,7 +5,7 @@
     <div class="enlaces-generales">
         <a href="{{route('index')}}">Inicio</a>
         <a href="{{route('players.index')}}">Jugadores</a>
-        <a href="{{route('events.index')}}">Eventos</a>
+        <a href="{{route('eventos')}}">Eventos</a>
         <a href="{{route('messages.create')}}">Añadir mensaje</a>
         <a href="{{route('location')}}">Dónde estamos</a>
     </div>

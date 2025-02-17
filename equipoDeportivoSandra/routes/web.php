@@ -24,12 +24,9 @@ Route::get('contact',function(){
 
 // esta es de js
 Route::get('/eventos',function(){
-    return view('eventos');
-});
+    return view('events.eventos');
+})->name('eventos');
 
-Route::get('events', function(){
-    return view('events.show');
-})->name('events');
 
 Route::get('location', function(){
     return view('contactInfo.location');
