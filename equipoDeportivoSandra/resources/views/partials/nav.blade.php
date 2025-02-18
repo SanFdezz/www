@@ -1,6 +1,6 @@
 <nav class="navbar navbar-expand-lg navbar-light bg-dark px-3 sticky-top">
     <a class="navbar-brand d-flex align-items-center" href="{{route('index')}}">
-        <img src="{{asset('images/escudoVLC.png')}}" height="40" alt="logo del equipo" class="me-2">
+        <img src="{{asset('images/escudoVLC.png')}}" height="40" alt="logo del equipo" class="me-2 logo">
         <span class="fw-bold text-light">Valencia CF</span>
     </a>
     <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">

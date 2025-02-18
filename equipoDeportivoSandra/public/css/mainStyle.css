@@ -120,12 +120,22 @@ a {
   grid-template-columns: 1fr;
   gap: 1em;
 }
-@media (min-width: 768px) {
+.bloque-mostrar .todos .uno {
+  padding: 1em;
+  border-radius: 1em;
+  background-image: radial-gradient(circle, #b03939, #b79e39);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+}
+.bloque-mostrar .todos .uno img {
+  height: auto;
+  width: 100%;
+}
+@media (min-width: 600px) {
   .bloque-mostrar .todos {
     grid-template-columns: repeat(2, 1fr);
   }
 }
-@media (min-width: 1200px) {
+@media (min-width: 900px) {
   .bloque-mostrar .todos {
     grid-template-columns: repeat(3, 1fr);
   }
@@ -138,4 +148,31 @@ a {
   align-items: center;
   margin: 1em;
   gap: 1em;
+}
+
+.logo {
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+.logo:hover {
+  transform: scale(1.1);
+  filter: brightness(1.2);
+}
+
+.link {
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+.link:hover {
+  animation: animarEnlace 1s infinite;
+}
+@keyframes animarEnlace {
+  0% {
+    color: rgb(255, 255, 255);
+  }
+  50% {
+    color: rgb(203, 203, 203);
+  }
+  100% {
+    color: rgb(160, 160, 160);
+  }
 }/*# sourceMappingURL=mainStyle.css.map */

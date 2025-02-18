@@ -1,6 +1,9 @@
+
+// variables
 $dark : #212529;
 $degradado:  radial-gradient(circle, #b03939, #b79e39);
 
+// clase padre
 %bloque-base{
     background-image: $degradado;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
@@ -9,6 +12,7 @@ $degradado:  radial-gradient(circle, #b03939, #b79e39);
     color: rgb(255, 255, 255);
 }
 
+// para poder aplicar de manera más sencilla los displays
 @mixin display($direction: column){
     display: flex;
     flex-direction: $direction;
@@ -16,6 +20,7 @@ $degradado:  radial-gradient(circle, #b03939, #b79e39);
     align-items: center;
 }
 
+// para poner el fondo de la pagina
 body{
     background-image: url('/images/fondo.png');
     background-size: cover;
@@ -23,25 +28,30 @@ body{
     min-height: 100vh;
 }
 
+// para poner el display del cuerpo
 .cuerpo{
     @include display();
 }
 
+// estilo de los enlaces
 a {
     color: white;
     text-decoration: dotted;
 }
 
+// clase bloque
 .bloque{
     @extend %bloque-base;
     margin: 2em;
     padding: 2em;
     @include display();
 
+    //h2 dentro de los bloques
     h2{
         font-weight: bold;
     }
 
+    // formularios en los bloques
     form{
         display: flex;
         flex-direction: column;
@@ -49,17 +59,20 @@ a {
         accent-color: $dark;
     }
 
+    // mostrar mensajes
     .mensajeCompleto{
         @include display();
         gap: 0.5em;
         margin: 1em;
     }
 
+    // estilo imagen
     .avatar{
         max-height: 15em;
         margin-bottom: 1em;
     }
 
+    // estilo mapa
     iframe {
         width: 100%;
         height: auto;
@@ -67,10 +80,12 @@ a {
     }
 }
 
+// para mostrar la pagina de inicio
 .index{
     @include display();
     margin: 2em;
     gap: 1.5em;
+    // imagen del index
     .banner{
         max-height: 15em;
         width: 100%;
@@ -87,6 +102,7 @@ a {
     }
 }
 
+// botones
 .btn{
     background-color: $dark;
     color: white;
@@ -97,16 +113,19 @@ a {
     }
 }
 
+// estilo de los errores
 .errores{
     margin-top: 1em;
     color: #510000;
 }
 
+// hover del nav
 .nav-item:hover{
     background-color: #48494b;
     border-radius: 0.5em;
 }
 
+// para mostrar diversos elementos
 .bloque-mostrar{
     @include display();
     background-color:#21252972;
@@ -116,32 +135,80 @@ a {
     gap: 1.5em;
     box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 
+    // h1 del bloque
     h1{
         font-weight: bold;
         color: white;
     }
 
+    // bloque que contiene las tarjetas
+
     .todos {
         display: grid;
         grid-template-columns: 1fr;
         gap: 1em;
-    }
 
-    @media (min-width: 768px) {
-        .todos {
-            grid-template-columns: repeat(2, 1fr);
-        }
-    }
+        // tarjeta
+        .uno {
+          padding: 1em;
+          border-radius: 1em;
+          background-image: $degradado;
+          box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
 
-    @media (min-width: 1200px) {
-        .todos {
-            grid-template-columns: repeat(3, 1fr);
+          // imagen del jugador
+          img {
+            height: auto;
+            width: 100%;
+          }
         }
-    }
+
+        // haciendolo responsive
+
+        @media (min-width: 600px) {
+          grid-template-columns: repeat(2, 1fr);
+        }
+
+        @media (min-width: 900px) {
+          grid-template-columns: repeat(3, 1fr);
+        }
+      }
+
+
 }
+
+// botones:
 
 .botones{
     @include display(row);
     margin: 1em;
     gap: 1em;
 }
+
+.logo {
+    transition: transform 0.3s ease, filter 0.3s ease;
+    &:hover {
+        transform: scale(1.1);
+        filter: brightness(1.2);
+      }
+}
+
+// la animacion con keyframe, este hace que "parpadee" o que lo parezca
+.link {
+    text-decoration: none;
+    transition: color 0.3s ease;
+    &:hover {
+        animation: animarEnlace 1s infinite; // infinita para que se repita siempre
+    }
+    @keyframes animarEnlace {
+        0% {
+            color: rgb(255, 255, 255);
+        }
+        50% {
+            color: rgb(203, 203, 203);
+        }
+        100% {
+            color: rgb(160, 160, 160);
+        }
+    }
+}
+

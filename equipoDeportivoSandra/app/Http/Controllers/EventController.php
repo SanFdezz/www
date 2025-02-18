@@ -40,7 +40,7 @@ class EventController extends Controller
         $event->tags = $request->input('tags');
         $event->save();
 
-        return redirect()->route('index');
+        return redirect()->route('events.show', compact('event'));
     }
 
     /**

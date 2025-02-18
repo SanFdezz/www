@@ -9,7 +9,7 @@
     <div class="todos">
         @foreach ($messages as $message)
             <div class="uno">
-                <div><b>Titulo/Asunto:</b> <a href="{{route('messages.show',$message)}}">{{ $message->subject }}</a></div>
+                <div><b>Titulo/Asunto:</b> <a class="link" href="{{route('messages.show',$message)}}">{{ $message->subject }}</a></div>
                 <div><b>Autor:</b> <span>{{ $message->name }}</span></div>
             </div>
         @endforeach
