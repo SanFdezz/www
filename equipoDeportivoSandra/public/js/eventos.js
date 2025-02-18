@@ -2,9 +2,10 @@ fetch('/api/events') // Petición a la ruta de Laravel
     .then(response => response.json())
     .then((data) => {
         const contenedor = document.getElementById('contenedorEventos');
+        contenedor.className = 'todos';
         data.forEach(infoEvento => {
             const evento = document.createElement('div');
-            evento.className = 'evento';
+            evento.className = 'uno';
             evento.id = infoEvento.id;
             const nombre = document.createElement('h2');
             nombre.textContent = infoEvento.name;
@@ -39,6 +40,7 @@ fetch('/api/events') // Petición a la ruta de Laravel
             }
 
             if(typeof userRole !== 'undefined'){
+
                 if (userRole === 'admin') {
                     const modificar = document.createElement('button');
                     modificar.textContent = 'Modificar evento'
@@ -48,6 +50,36 @@ fetch('/api/events') // Petición a la ruta de Laravel
                     eliminar.id = 'eliminar';
                     botones.appendChild(modificar);
                     botones.appendChild(eliminar);
+
+                    modificar.addEventListener('click',()=>{
+                        window.location.href = editEventRoute.replace(':id', infoEvento.id);
+                    });
+
+                    eliminar.addEventListener('click',()=>{
+                        let confirm = window.confirm('¿Seguro que quieres borrar el evento?');
+                        if(confirm){
+                            fetch('/api/events/'+evento.id, {
+                                method: 'DELETE',
+                                headers: {
+                                    'Content-Type': 'application/json',
+                                }
+                            })
+                            .then(response => {
+                                if (!response.ok) {
+                                    throw new Error('No se pudo eliminar el evento');
+                                }
+                                return response.json();
+                            })
+                            .then(() => {
+                                contenedor.removeChild(evento);
+                                contenedor.removeChild(botones);
+                            })
+                            .catch(error => {
+                                console.error("Error eliminando el evento:", error);
+                                alert("Hubo un error al eliminar el evento.");
+                            });
+                        }
+                    })
                 }
             }
 

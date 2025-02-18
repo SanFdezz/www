@@ -1,0 +1,147 @@
+$dark : #212529;
+$degradado:  radial-gradient(circle, #b03939, #b79e39);
+
+%bloque-base{
+    background-image: $degradado;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+    padding: 1.5em;
+    border-radius: 1em;
+    color: rgb(255, 255, 255);
+}
+
+@mixin display($direction: column){
+    display: flex;
+    flex-direction: $direction;
+    justify-content: center;
+    align-items: center;
+}
+
+body{
+    background-image: url('/images/fondo.png');
+    background-size: cover;
+    background-position: center center;
+    min-height: 100vh;
+}
+
+.cuerpo{
+    @include display();
+}
+
+a {
+    color: white;
+    text-decoration: dotted;
+}
+
+.bloque{
+    @extend %bloque-base;
+    margin: 2em;
+    padding: 2em;
+    @include display();
+
+    h2{
+        font-weight: bold;
+    }
+
+    form{
+        display: flex;
+        flex-direction: column;
+        gap: 0.5em;
+        accent-color: $dark;
+    }
+
+    .mensajeCompleto{
+        @include display();
+        gap: 0.5em;
+        margin: 1em;
+    }
+
+    .avatar{
+        max-height: 15em;
+        margin-bottom: 1em;
+    }
+
+    iframe {
+        width: 100%;
+        height: auto;
+        aspect-ratio: 16 / 9;
+    }
+}
+
+.index{
+    @include display();
+    margin: 2em;
+    gap: 1.5em;
+    .banner{
+        max-height: 15em;
+        width: 100%;
+        box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+        border-radius: 1em;
+        transition: transform 0.5s ease;
+        &:hover{
+            transform: scale(1.05);
+        }
+    }
+
+    p{
+        @extend %bloque-base;
+    }
+}
+
+.btn{
+    background-color: $dark;
+    color: white;
+    font-weight: bold;
+    &:hover{
+        background-color: white;
+        color: $dark;
+    }
+}
+
+.errores{
+    margin-top: 1em;
+    color: #510000;
+}
+
+.nav-item:hover{
+    background-color: #48494b;
+    border-radius: 0.5em;
+}
+
+.bloque-mostrar{
+    @include display();
+    background-color:#21252972;
+    border-radius: 1em;
+    padding: 2em;
+    margin: 2em;
+    gap: 1.5em;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+
+    h1{
+        font-weight: bold;
+        color: white;
+    }
+
+    .todos {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: 1em;
+    }
+
+    @media (min-width: 768px) {
+        .todos {
+            grid-template-columns: repeat(2, 1fr);
+        }
+    }
+
+    @media (min-width: 1200px) {
+        .todos {
+            grid-template-columns: repeat(3, 1fr);
+        }
+    }
+}
+
+.botones{
+    @include display(row);
+    margin: 1em;
+    gap: 1em;
+}

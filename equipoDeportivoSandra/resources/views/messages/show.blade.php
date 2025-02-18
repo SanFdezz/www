@@ -4,17 +4,19 @@
 
 @section('body')
 
-<div class="mensajeCompleto">
-    <h2>{{$message->subject}}</h2>
-    <h3>{{$message->name}}</h3>
-    <div>{{$message->text}}</div>
+<div class="bloque">
+    <div class="mensajeCompleto">
+        <h2>Mensaje de: {{$message->name}}</h2>
+        <h3>{{$message->subject}}</h3>
+        <div>{{$message->text}}</div>
+    </div>
+
+
+    <form action="{{ route('messages.destroy', $message) }}" method="POST">
+        @csrf
+        @method('delete')
+        <input type="submit" class="btn" value="Eliminar mensaje">
+    </form>
 </div>
-
-
-<form action="{{ route('messages.destroy', $message) }}" method="POST">
-    @csrf
-    @method('delete')
-    <button type="submit">Eliminar mensaje</button>
-</form>
 
 @endsection

@@ -4,7 +4,7 @@
 
 @section('body')
 
-<div id="contenedorEventos">
+<div id="contenedorEventos" >
 
 </div>
 
@@ -12,9 +12,10 @@
     <script>
         var userRole = @json(Auth::user()->rol);
         var eventRoute = "{{ route('events.show', ':id') }}";
+        var editEventRoute = "{{ route('events.edit', ':id') }}";
     </script>
 @endauth
 
-<script src="{{asset('js/eventos.js')}}"></script>
+<script src="{{asset('/js/eventos.js')}}"></script>
 
 @endsection

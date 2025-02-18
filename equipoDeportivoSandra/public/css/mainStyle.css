@@ -1,0 +1,141 @@
+.index p, .bloque {
+  background-image: radial-gradient(circle, #b03939, #b79e39);
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+  padding: 1.5em;
+  border-radius: 1em;
+  color: rgb(255, 255, 255);
+}
+
+body {
+  background-image: url("/images/fondo.png");
+  background-size: cover;
+  background-position: center center;
+  min-height: 100vh;
+}
+
+.cuerpo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+a {
+  color: white;
+  -webkit-text-decoration: dotted;
+          text-decoration: dotted;
+}
+
+.bloque {
+  margin: 2em;
+  padding: 2em;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.bloque h2 {
+  font-weight: bold;
+}
+.bloque form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5em;
+  accent-color: #212529;
+}
+.bloque .mensajeCompleto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 0.5em;
+  margin: 1em;
+}
+.bloque .avatar {
+  max-height: 15em;
+  margin-bottom: 1em;
+}
+.bloque iframe {
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16/9;
+}
+
+.index {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin: 2em;
+  gap: 1.5em;
+}
+.index .banner {
+  max-height: 15em;
+  width: 100%;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+  border-radius: 1em;
+  transition: transform 0.5s ease;
+}
+.index .banner:hover {
+  transform: scale(1.05);
+}
+.btn {
+  background-color: #212529;
+  color: white;
+  font-weight: bold;
+}
+.btn:hover {
+  background-color: white;
+  color: #212529;
+}
+
+.errores {
+  margin-top: 1em;
+  color: #510000;
+}
+
+.nav-item:hover {
+  background-color: #48494b;
+  border-radius: 0.5em;
+}
+
+.bloque-mostrar {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(33, 37, 41, 0.4470588235);
+  border-radius: 1em;
+  padding: 2em;
+  margin: 2em;
+  gap: 1.5em;
+  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.6);
+}
+.bloque-mostrar h1 {
+  font-weight: bold;
+  color: white;
+}
+.bloque-mostrar .todos {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 1em;
+}
+@media (min-width: 768px) {
+  .bloque-mostrar .todos {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+@media (min-width: 1200px) {
+  .bloque-mostrar .todos {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+.botones {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  margin: 1em;
+  gap: 1em;
+}/*# sourceMappingURL=mainStyle.css.map */

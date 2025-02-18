@@ -61,4 +61,16 @@ class LoginController extends Controller
         $request->session()->regenerateToken();
         return redirect()->route('index');
     }
+
+    public function destroy($id)
+    {
+        $user = User::find($id);
+
+        if ($user) {
+            $user->delete();
+            return redirect()->route('index');
+        }
+
+        return redirect()->back()->with('error', 'Usuario no encontrado.');
+    }
 }

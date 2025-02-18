@@ -46,4 +46,5 @@ Route::get('login', [LoginController::class,'loginForm'])->name('loginForm');
 Route::post('login',[LoginController::class,'login'])->name('login');
 Route::get('logout',[LoginController::class, 'logout'])->name('logout');
 
+Route::delete('/account/{id}', [LoginController::class, 'destroy'])->name('account.destroy');
 

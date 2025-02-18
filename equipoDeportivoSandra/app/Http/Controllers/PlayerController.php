@@ -30,12 +30,13 @@ class PlayerController extends Controller
      */
     public function store(PlayerRequest $request)
     {
+        $generateName = $request->hasFile('avatar') ? $request->file('avatar')->store('avatars','public'):null;
         $player = new Player();
         $player->name = $request->input('name');
         $player->twitter = $request->input('twitter');
         $player->instagram = $request->input('instagram');
         $player->twitch = $request->input('twitch');
-        $player->avatar = $request->input('avatar');
+        $player->avatar = $generateName;
         $player->age = $request->input('age');
         $player->position = $request->input('position');
         $player->visible = 1;

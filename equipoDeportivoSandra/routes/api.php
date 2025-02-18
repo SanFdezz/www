@@ -10,3 +10,5 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/events',[EventApiController::class,'index']);
 Route::get('/events/{event}',[EventApiController::class,'show']);
+Route::put('/events/{event}', [EventApiController::class, 'update'])->name('update');
+Route::delete('/events/{event}', [EventApiController::class, 'destroy']);

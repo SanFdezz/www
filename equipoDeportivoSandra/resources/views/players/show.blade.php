@@ -4,10 +4,10 @@
 
 @section('body')
 
-<div class="jugador">
+<div class="bloque">
     <h2>{{$player->name}}</h2>
     <h3>{{$player->position}}</h3>
-    <img src="{{asset($player->avatar)}}" alt="imagen">
+    <img src="{{asset('storage/'. $player->avatar)}}" alt="avatar" class="avatar">
     <div>Edad: {{$player->age}}</div>
     <div class="redes">
         <div>Instagram: {{$player->instagram}}</div>
